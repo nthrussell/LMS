@@ -20,8 +20,7 @@ class ProfileCoordinator: Coordinator {
         let profileView = ProfileView(with: profileViewModel)
         let profileViewController = ProfileViewController(with: profileView, and: profileViewModel)
         profileViewController.coordinator = self
-        profileViewController.onLogout = { [weak self] in
-            guard let self else { return }
+        profileViewController.onLogout = {
             LoginManager.shared.logOut()
             let loginCoordinator = LoginCoordinator(with: self.window)
             loginCoordinator.start()

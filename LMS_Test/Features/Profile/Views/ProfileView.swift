@@ -36,11 +36,76 @@ class ProfileView: BindView<ProfileViewModel>  {
         return button
     }()
     
+    private(set) lazy var segmentsContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Constant.Colors.AccentColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // Labels for segments
+    private(set) lazy var featuredLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Featured"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(featuredTapped))
+        label.addGestureRecognizer(tap)
+        return label
+    }()
+    
+    private(set) lazy var proLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Pro"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(proTapped))
+        label.addGestureRecognizer(tap)
+        return label
+    }()
+    
+    // Indicator bar to highlight selected segment
+    private lazy var indicatorBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = .green
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // Container for child controllers
+    lazy var contentContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    // Constraint to move the indicator bar between segments
+    var indicatorLeadingConstraint: NSLayoutConstraint?
+    
+    var featuredSegmentTapped: (() -> Void)?
+    var proSegmenttapped: (() -> Void)?
+    var logOutTapped: (() -> Void)?
+    
     override func setupViews() {
         addSubview(customNavigationBar)
-        
         customNavigationBar.addSubview(menuImageView)
         customNavigationBar.addSubview(logoutButton)
+        
+        // Add segmentsContainerView below the custom nav bar
+        addSubview(segmentsContainerView)
+        // Add the labels to the segmentsContainerView
+        segmentsContainerView.addSubview(featuredLabel)
+        segmentsContainerView.addSubview(proLabel)
+        segmentsContainerView.addSubview(indicatorBar)
+        
+        addSubview(contentContainerView)
     }
     
     override func setupLayouts() {
@@ -65,9 +130,61 @@ class ProfileView: BindView<ProfileViewModel>  {
             logoutButton.trailingAnchor.constraint(equalTo: customNavigationBar.trailingAnchor, constant: -16),
             logoutButton.centerYAnchor.constraint(equalTo: customNavigationBar.centerYAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+              segmentsContainerView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
+              segmentsContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+              segmentsContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+              segmentsContainerView.heightAnchor.constraint(equalToConstant: 50)
+          ])
+        
+          NSLayoutConstraint.activate([
+              featuredLabel.leadingAnchor.constraint(equalTo: segmentsContainerView.leadingAnchor),
+              featuredLabel.topAnchor.constraint(equalTo: segmentsContainerView.topAnchor),
+              featuredLabel.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
+              featuredLabel.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
+          ])
+        
+        NSLayoutConstraint.activate([
+             proLabel.trailingAnchor.constraint(equalTo: segmentsContainerView.trailingAnchor),
+             proLabel.topAnchor.constraint(equalTo: segmentsContainerView.topAnchor),
+             proLabel.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
+             proLabel.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
+         ])
+          
+          // Place the indicator bar below the segment title
+          // We'll position it at the bottom of the container
+          // and move its leading anchor depending on the segment.
+          indicatorLeadingConstraint = indicatorBar.leadingAnchor.constraint(equalTo: segmentsContainerView.leadingAnchor)
+          
+          NSLayoutConstraint.activate([
+              indicatorBar.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
+              indicatorBar.heightAnchor.constraint(equalToConstant: 3),
+              // This is 50% of the container width to match one segment
+              indicatorBar.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
+              indicatorLeadingConstraint!
+          ])
+        
+        NSLayoutConstraint.activate([
+               contentContainerView.topAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
+               contentContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+               contentContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+               contentContainerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+           ])
     }
     
     @objc private func logoutTapped() {
         print("Logout button tapped")
+        logOutTapped?()
+    }
+    
+    // MARK: - Segment Actions
+    @objc private func featuredTapped() {
+        featuredSegmentTapped?()
+    }
+    
+    @objc private func proTapped() {
+        proSegmenttapped?()
     }
 }
+
