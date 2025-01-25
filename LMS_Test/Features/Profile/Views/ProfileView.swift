@@ -15,16 +15,14 @@ class ProfileView: BindView<ProfileViewModel>  {
         return navigationBar
     }()
     
-    // Menu icon on the left
     private(set) lazy var menuImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named:"LMS-Menu") // Example icon
+        imageView.image = UIImage(named:"LMS-Menu")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    // Logout button on the right
     private(set) lazy var logoutButton: UIButton = {
         let button = UIButton(type: .system)
         let logoutImage = UIImage(systemName: "rectangle.portrait.and.arrow.right")
@@ -43,7 +41,6 @@ class ProfileView: BindView<ProfileViewModel>  {
         return view
     }()
     
-    // Labels for segments
     private(set) lazy var featuredLabel: UILabel = {
         let label = UILabel()
         label.text = "Featured"
@@ -70,7 +67,6 @@ class ProfileView: BindView<ProfileViewModel>  {
         return label
     }()
     
-    // Indicator bar to highlight selected segment
     private lazy var indicatorBar: UIView = {
         let view = UIView()
         view.backgroundColor = .green
@@ -78,7 +74,6 @@ class ProfileView: BindView<ProfileViewModel>  {
         return view
     }()
     
-    // Container for child controllers
     lazy var contentContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
@@ -86,7 +81,6 @@ class ProfileView: BindView<ProfileViewModel>  {
         return view
     }()
     
-    // Constraint to move the indicator bar between segments
     var indicatorLeadingConstraint: NSLayoutConstraint?
     
     var featuredSegmentTapped: (() -> Void)?
@@ -98,9 +92,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         customNavigationBar.addSubview(menuImageView)
         customNavigationBar.addSubview(logoutButton)
         
-        // Add segmentsContainerView below the custom nav bar
         addSubview(segmentsContainerView)
-        // Add the labels to the segmentsContainerView
         segmentsContainerView.addSubview(featuredLabel)
         segmentsContainerView.addSubview(proLabel)
         segmentsContainerView.addSubview(indicatorBar)
@@ -109,7 +101,6 @@ class ProfileView: BindView<ProfileViewModel>  {
     }
     
     override func setupLayouts() {
-        // Navigation bar constraints
         NSLayoutConstraint.activate([
             customNavigationBar.topAnchor.constraint(equalTo: topAnchor),
             customNavigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -117,7 +108,6 @@ class ProfileView: BindView<ProfileViewModel>  {
             customNavigationBar.heightAnchor.constraint(equalToConstant: 120)
         ])
         
-        // Menu icon constraints
         NSLayoutConstraint.activate([
             menuImageView.leadingAnchor.constraint(equalTo: customNavigationBar.leadingAnchor, constant: 16),
             menuImageView.centerYAnchor.constraint(equalTo: customNavigationBar.centerYAnchor),
@@ -125,52 +115,47 @@ class ProfileView: BindView<ProfileViewModel>  {
             menuImageView.heightAnchor.constraint(equalToConstant: 40)
         ])
         
-        // Logout button constraints
         NSLayoutConstraint.activate([
             logoutButton.trailingAnchor.constraint(equalTo: customNavigationBar.trailingAnchor, constant: -16),
             logoutButton.centerYAnchor.constraint(equalTo: customNavigationBar.centerYAnchor)
         ])
         
         NSLayoutConstraint.activate([
-              segmentsContainerView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
-              segmentsContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-              segmentsContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-              segmentsContainerView.heightAnchor.constraint(equalToConstant: 50)
-          ])
-        
-          NSLayoutConstraint.activate([
-              featuredLabel.leadingAnchor.constraint(equalTo: segmentsContainerView.leadingAnchor),
-              featuredLabel.topAnchor.constraint(equalTo: segmentsContainerView.topAnchor),
-              featuredLabel.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
-              featuredLabel.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
-          ])
+            segmentsContainerView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
+            segmentsContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            segmentsContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            segmentsContainerView.heightAnchor.constraint(equalToConstant: 50)
+        ])
         
         NSLayoutConstraint.activate([
-             proLabel.trailingAnchor.constraint(equalTo: segmentsContainerView.trailingAnchor),
-             proLabel.topAnchor.constraint(equalTo: segmentsContainerView.topAnchor),
-             proLabel.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
-             proLabel.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
-         ])
-          
-          // Place the indicator bar below the segment title
-          // We'll position it at the bottom of the container
-          // and move its leading anchor depending on the segment.
-          indicatorLeadingConstraint = indicatorBar.leadingAnchor.constraint(equalTo: segmentsContainerView.leadingAnchor)
-          
-          NSLayoutConstraint.activate([
-              indicatorBar.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
-              indicatorBar.heightAnchor.constraint(equalToConstant: 3),
-              // This is 50% of the container width to match one segment
-              indicatorBar.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
-              indicatorLeadingConstraint!
-          ])
+            featuredLabel.leadingAnchor.constraint(equalTo: segmentsContainerView.leadingAnchor),
+            featuredLabel.topAnchor.constraint(equalTo: segmentsContainerView.topAnchor),
+            featuredLabel.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
+            featuredLabel.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
+        ])
         
         NSLayoutConstraint.activate([
-               contentContainerView.topAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
-               contentContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
-               contentContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-               contentContainerView.bottomAnchor.constraint(equalTo: bottomAnchor)
-           ])
+            proLabel.trailingAnchor.constraint(equalTo: segmentsContainerView.trailingAnchor),
+            proLabel.topAnchor.constraint(equalTo: segmentsContainerView.topAnchor),
+            proLabel.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
+            proLabel.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
+        ])
+        
+        indicatorLeadingConstraint = indicatorBar.leadingAnchor.constraint(equalTo: segmentsContainerView.leadingAnchor)
+        
+        NSLayoutConstraint.activate([
+            indicatorBar.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
+            indicatorBar.heightAnchor.constraint(equalToConstant: 3),
+            indicatorBar.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
+            indicatorLeadingConstraint!
+        ])
+        
+        NSLayoutConstraint.activate([
+            contentContainerView.topAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
+            contentContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentContainerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
     
     @objc private func logoutTapped() {
