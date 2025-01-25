@@ -40,7 +40,7 @@ class LoginView: BindView<LoginViewModel> {
         return view
     }()
     
-    private let lmsSegmentedControl: LMSegmentedControl = {
+    private(set) lazy var lmsSegmentedControl: LMSegmentedControl = {
         let segControl = LMSegmentedControl(
             frame: CGRect(x: 0, y: 0, width: 100, height: 100),
             buttonTitle: ["Fingerprint","Face"])
@@ -53,6 +53,42 @@ class LoginView: BindView<LoginViewModel> {
         return segControl
     }()
     
+    private(set) lazy var confirmBioLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.textAlignment = .center
+        label.text = "Confirm Biometric"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private(set) lazy var scanLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.text = "Scan Your Finger"
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private(set) lazy var biometricButton: UIButton = {
+        let button = UIButton(type: .custom)
+        
+        button.tintColor = .white
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.setImage(UIImage(named:"FingerPrint"), for: .normal)
+        
+        button.backgroundColor = .red
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(biometricButtonTap), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
     override func setupViews() {
         addSubview(imageView)
         addSubview(loginButton)
@@ -60,6 +96,10 @@ class LoginView: BindView<LoginViewModel> {
         
         loginBiometricBox.addSubview(lmsSegmentedControl)
         lmsSegmentedControl.delegate = self
+        
+        loginBiometricBox.addSubview(confirmBioLabel)
+        loginBiometricBox.addSubview(scanLabel)
+        loginBiometricBox.addSubview(biometricButton)
     }
     
     override func setupLayouts() {
@@ -93,6 +133,29 @@ class LoginView: BindView<LoginViewModel> {
             lmsSegmentedControl.trailingAnchor.constraint(equalTo: loginBiometricBox.trailingAnchor, constant: -16),
             lmsSegmentedControl.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
+        NSLayoutConstraint.activate([
+            confirmBioLabel.topAnchor.constraint(equalTo: lmsSegmentedControl.bottomAnchor, constant: 5),
+            confirmBioLabel.centerXAnchor.constraint(equalTo: lmsSegmentedControl.centerXAnchor),
+            confirmBioLabel.leadingAnchor.constraint(equalTo: loginBiometricBox.leadingAnchor, constant: 16),
+            confirmBioLabel.trailingAnchor.constraint(equalTo: loginBiometricBox.trailingAnchor, constant: -16),
+            confirmBioLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        
+        NSLayoutConstraint.activate([
+            scanLabel.topAnchor.constraint(equalTo: confirmBioLabel.bottomAnchor, constant: 5),
+            scanLabel.centerXAnchor.constraint(equalTo: lmsSegmentedControl.centerXAnchor),
+            scanLabel.leadingAnchor.constraint(equalTo: confirmBioLabel.leadingAnchor),
+            scanLabel.trailingAnchor.constraint(equalTo: confirmBioLabel.trailingAnchor),
+            scanLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        
+        NSLayoutConstraint.activate([
+            biometricButton.topAnchor.constraint(equalTo: scanLabel.bottomAnchor, constant: 15),
+            biometricButton.centerXAnchor.constraint(equalTo: scanLabel.centerXAnchor),
+            biometricButton.widthAnchor.constraint(equalToConstant: 50),
+            biometricButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     @objc
@@ -107,11 +170,27 @@ extension LoginView: LMSegmentedControlDelegate {
     func segSelectedIndexChange(to index: Int) {
         switch index {
         case 0:
-            Logger.log("FingerPrint")
+            scanLabel.text = "Scan Your Finger"
+            biometricButton.setImage(UIImage(named:"FingerPrint"), for: .normal)
         case 1:
-            Logger.log("Face")
+            scanLabel.text = "Use Face Recognition"
+            biometricButton.setImage(UIImage(named:"FaceID"), for: .normal)
         default:
             break
+        }
+    }
+}
+
+extension LoginView {
+    @objc private
+    func biometricButtonTap() {
+        viewModel.authenticateUser() { [weak self] status in
+            switch status {
+            case .success:
+                Logger.log("Authenticate User Success")
+            case .failure:
+                Logger.log("Authenticate User Fail")
+            }
         }
     }
 }

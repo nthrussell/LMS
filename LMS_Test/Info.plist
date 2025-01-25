@@ -19,5 +19,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>LMS requires Face ID to Log In</string>
 </dict>
 </plist>

@@ -31,7 +31,7 @@ class LMSegmentedControl: UIControl {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        self.backgroundColor = .red//Constant.Colors.SegmentColor
+        self.backgroundColor = Constant.Colors.SegmentColor
         updateView()
     }
     
@@ -112,6 +112,4 @@ extension LMSegmentedControl {
         }
         buttons[0].setTitleColor(selectorTextColor, for: .normal)
     }
-    
-    
 }

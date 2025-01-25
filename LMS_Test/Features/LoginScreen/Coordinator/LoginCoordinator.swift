@@ -17,7 +17,7 @@ final class LoginCoordinator: Coordinator {
     }
     
     func start() {
-        let loginViewModel = LoginViewModel()
+        let loginViewModel = DefaultLoginViewModel()
         let loginView = LoginView(with: loginViewModel)
         let loginViewController = LoginViewController(with: loginView, and: loginViewModel)
         loginViewController.coordinator = self
