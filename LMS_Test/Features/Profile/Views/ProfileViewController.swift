@@ -9,6 +9,7 @@ import UIKit
 
 class ProfileViewController: BindViewController<ProfileView, ProfileViewModel> {
     weak var coordinator: ProfileCoordinator?
+    var onLogout: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()

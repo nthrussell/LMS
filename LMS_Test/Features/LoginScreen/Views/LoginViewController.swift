@@ -9,6 +9,7 @@ import UIKit
 
 class LoginViewController: BindViewController<LoginView, LoginViewModel> {
     var coordinator: LoginCoordinator?
+    var onLoginSuccess: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +25,9 @@ class LoginViewController: BindViewController<LoginView, LoginViewModel> {
             guard let self else { return }
             switch status {
             case true:
-                coordinator?.navigateToProfile()
+                onLoginSuccess?()
             case false:
-                Logger.log("Navigation fail")
+                Logger.log("Biometric Login failed")
             }
         }
     }

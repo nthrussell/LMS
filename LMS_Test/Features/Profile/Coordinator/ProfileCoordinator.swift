@@ -9,20 +9,25 @@ import UIKit
 
 class ProfileCoordinator: Coordinator {
     lazy var childCoordinators: [Coordinator] = []
-    let navigationController: UINavigationController
+    private let window: UIWindow?
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-        Logger.log("profile navigation is: \(self.navigationController )")
+    init(with window: UIWindow?) {
+        self.window = window
     }
     
     func start() {
         let profileViewModel = DefaultProfileViewModel()
         let profileView = ProfileView(with: profileViewModel)
         let profileViewController = ProfileViewController(with: profileView, and: profileViewModel)
-        
         profileViewController.coordinator = self
+        profileViewController.onLogout = { [weak self] in
+            guard let self else { return }
+            LoginManager.shared.logOut()
+            let loginCoordinator = LoginCoordinator(with: self.window)
+            loginCoordinator.start()
+        }
         
-        navigationController.pushViewController(profileViewController, animated: true)
+        window?.rootViewController = profileViewController
+        window?.makeKeyAndVisible()
     }
 }
