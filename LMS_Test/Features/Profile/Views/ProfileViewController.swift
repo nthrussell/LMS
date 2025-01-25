@@ -22,27 +22,30 @@ class ProfileViewController: BindViewController<ProfileView, ProfileViewModel> {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        // 1) Start each coordinator once
         featuredCoordinator.start()
         proCoordinator.start()
         
-        // 2) Display "Featured" by default
         displayChildCoordinator(featuredCoordinator)
         moveIndicator(to: 0)
         
-        // 3) Handle segment taps
         rootView.featuredSegmentTapped = { [weak self] in
             guard let self = self else { return }
             self.displayChildCoordinator(self.featuredCoordinator)
             self.moveIndicator(to: 0)
+            
+            rootView.featuredLabel.textColor = .white
+            rootView.proLabel.textColor = .white.withAlphaComponent(0.7)
         }
+        
         rootView.proSegmenttapped = { [weak self] in
             guard let self = self else { return }
             self.displayChildCoordinator(self.proCoordinator)
             self.moveIndicator(to: 1)
+            
+            rootView.featuredLabel.textColor = .white.withAlphaComponent(0.7)
+            rootView.proLabel.textColor = .white
         }
         
-        // 4) Setup logout closure
         didTapLogout()
     }
     
@@ -57,15 +60,12 @@ class ProfileViewController: BindViewController<ProfileView, ProfileViewModel> {
         }
     }
     
-    /// Dynamically embed one coordinator’s navigation controller in the content container
     private func displayChildCoordinator(_ coordinator: Coordinator) {
-        // 1) Remove any currently displayed navigation controller
         if let current = currentNavController {
             current.view.removeFromSuperview()
             current.removeFromParent()
         }
         
-        // 2) Determine which navController we’re embedding
         let navController: UINavigationController?
         switch coordinator {
         case let featured as FeaturedCoordinator:

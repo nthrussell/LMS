@@ -45,7 +45,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         let label = UILabel()
         label.text = "Featured"
         label.textColor = .white
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.font = .systemFont(ofSize: 18, weight: .regular)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isUserInteractionEnabled = true
@@ -57,8 +57,8 @@ class ProfileView: BindView<ProfileViewModel>  {
     private(set) lazy var proLabel: UILabel = {
         let label = UILabel()
         label.text = "Pro"
-        label.textColor = .white
-        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.textColor = .white.withAlphaComponent(0.7)
+        label.font = .systemFont(ofSize: 18, weight: .regular)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isUserInteractionEnabled = true
@@ -69,7 +69,7 @@ class ProfileView: BindView<ProfileViewModel>  {
     
     private lazy var indicatorBar: UIView = {
         let view = UIView()
-        view.backgroundColor = .green
+        view.backgroundColor = Constant.Colors.proSegmentColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -105,7 +105,7 @@ class ProfileView: BindView<ProfileViewModel>  {
             customNavigationBar.topAnchor.constraint(equalTo: topAnchor),
             customNavigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             customNavigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
-            customNavigationBar.heightAnchor.constraint(equalToConstant: 120)
+            customNavigationBar.heightAnchor.constraint(equalToConstant: 70)
         ])
         
         NSLayoutConstraint.activate([
@@ -145,7 +145,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         
         NSLayoutConstraint.activate([
             indicatorBar.bottomAnchor.constraint(equalTo: segmentsContainerView.bottomAnchor),
-            indicatorBar.heightAnchor.constraint(equalToConstant: 3),
+            indicatorBar.heightAnchor.constraint(equalToConstant: 5),
             indicatorBar.widthAnchor.constraint(equalTo: segmentsContainerView.widthAnchor, multiplier: 0.5),
             indicatorLeadingConstraint!
         ])
