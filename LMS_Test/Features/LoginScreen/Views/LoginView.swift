@@ -89,6 +89,8 @@ class LoginView: BindView<LoginViewModel> {
         return button
     }()
     
+    var onTapBiometric: ((_ status: Bool) -> Void)?
+    
     override func setupViews() {
         addSubview(imageView)
         addSubview(loginButton)
@@ -185,11 +187,12 @@ extension LoginView {
     @objc private
     func biometricButtonTap() {
         viewModel.authenticateUser() { [weak self] status in
+            guard let self else { return }
             switch status {
             case .success:
-                Logger.log("Authenticate User Success")
+                self.onTapBiometric?(true)
             case .failure:
-                Logger.log("Authenticate User Fail")
+                self.onTapBiometric?(false)
             }
         }
     }
