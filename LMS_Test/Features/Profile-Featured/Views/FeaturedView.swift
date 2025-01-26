@@ -146,7 +146,7 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
                 dynamicView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
                 dynamicView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
                 dynamicView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
-                dynamicView.heightAnchor.constraint(equalToConstant: 900) // Set height as per your requirement
+                dynamicView.heightAnchor.constraint(equalToConstant: 1200) // Set height as per your requirement
             ])
         default:
             break

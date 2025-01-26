@@ -21,7 +21,7 @@ class SummeryView : BindView<FeaturedViewModel> {
         return stackView
     }()
     
-    lazy var topPlayersView: UIView = {
+    lazy var topPlayersView: TOPPlayersView = {
         let view = TOPPlayersView(with: viewModel)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -31,6 +31,7 @@ class SummeryView : BindView<FeaturedViewModel> {
         addSubview(firstStackView)
         addSubview(secondStackView)
         addSubview(topPlayersView)
+        topPlayersView.collectionView.reloadData()
     }
     
     override func setupLayouts() {
