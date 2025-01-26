@@ -94,13 +94,6 @@ class FirstStackView : BindView<FeaturedViewModel> {
         titleLabel.textAlignment = .left
         
         // Value Label
-        //        let valueLabel = UILabel()
-        //        valueLabel.text = value
-        //        valueLabel.font = .systemFont(ofSize: 40, weight: .heavy)
-        //        valueLabel.textColor = Constant.Colors.AccentColor
-        //        valueLabel.textAlignment = .left
-        
-        // Value Label
         let valueLabel = UILabel()
         valueLabel.attributedText = formattedValueText(for: value) // Use attributed text here
         valueLabel.textAlignment = .left

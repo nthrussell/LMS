@@ -21,9 +21,16 @@ class SummeryView : BindView<FeaturedViewModel> {
         return stackView
     }()
     
+    private(set) lazy var topPlayersView: UIView = {
+        let view = TOPPlayersView(with: viewModel)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func setupViews() {
         addSubview(firstStackView)
         addSubview(secondStackView)
+        addSubview(topPlayersView)
     }
     
     override func setupLayouts() {
@@ -39,6 +46,14 @@ class SummeryView : BindView<FeaturedViewModel> {
             secondStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             secondStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             secondStackView.heightAnchor.constraint(equalToConstant: 100)
+        ])
+        
+        NSLayoutConstraint.activate([
+            topPlayersView.topAnchor.constraint(equalTo: secondStackView.bottomAnchor, constant: 16),
+            topPlayersView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            topPlayersView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            //topPlayersView.heightAnchor.constraint(equalToConstant: 400),
+            //topPlayersView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }
