@@ -18,7 +18,7 @@ class TOPPlayersView: BindView<FeaturedViewModel> {
         return label
     }()
 
-    private let collectionView: UICollectionView = {
+    let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)

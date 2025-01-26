@@ -21,7 +21,7 @@ class SummeryView : BindView<FeaturedViewModel> {
         return stackView
     }()
     
-    private(set) lazy var topPlayersView: UIView = {
+    lazy var topPlayersView: UIView = {
         let view = TOPPlayersView(with: viewModel)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
