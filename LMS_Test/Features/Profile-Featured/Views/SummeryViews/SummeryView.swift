@@ -52,8 +52,7 @@ class SummeryView : BindView<FeaturedViewModel> {
             topPlayersView.topAnchor.constraint(equalTo: secondStackView.bottomAnchor, constant: 16),
             topPlayersView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             topPlayersView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            //topPlayersView.heightAnchor.constraint(equalToConstant: 400),
-            //topPlayersView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            topPlayersView.heightAnchor.constraint(equalToConstant: 400)
         ])
     }
 }

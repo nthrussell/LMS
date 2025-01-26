@@ -24,6 +24,9 @@ class TOPPlayersView: BindView<FeaturedViewModel> {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(PlayerCollectionViewCell.self, forCellWithReuseIdentifier: PlayerCollectionViewCell.identifier)
         collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = true
+        collectionView.collectionViewLayout = layout
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()

@@ -16,6 +16,7 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.showsVerticalScrollIndicator = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return tableView
     }()
