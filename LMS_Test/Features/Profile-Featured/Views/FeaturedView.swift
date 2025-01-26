@@ -68,10 +68,24 @@ class FeaturedView: BindView<FeaturedViewModel> {
     private(set) lazy var summaryButton: UIButton = createTabButton(title: "Summary", tag: 0)
     private(set) lazy var battingButton: UIButton = createTabButton(title: "Batting", tag: 1)
     private(set) lazy var bowlingButton: UIButton = createTabButton(title: "Bowling", tag: 2)
+        
+    private(set) lazy var summaryView: UIView = {
+        let view = SummeryView(with: viewModel)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
-    private(set) lazy var summaryView: UIView = createContainerView()
-    private(set) lazy var battingView: UIView = createContainerView()
-    private(set) lazy var bowlingView: UIView = createContainerView()
+    private(set) lazy var battingView: UIView = {
+        let view = BattingView(with: viewModel)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private(set) lazy var bowlingView: UIView = {
+        let view = BowlingView(with: viewModel)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override func setupViews() {
         addSubview(scrollView)
