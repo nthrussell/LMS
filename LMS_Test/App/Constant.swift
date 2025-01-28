@@ -24,7 +24,6 @@ extension Constant {
         static var SegmentColorBG = UIColor.init(red: 200/255, green: 241/255, blue: 230/255, alpha: 1.0)
         static var proSegmentColor = UIColor.init(red: 173/255, green: 196/255, blue: 76/255, alpha: 1.0)
         static var deepGreenColor = UIColor.init(red: 11/255, green: 53/255, blue: 57/255, alpha: 1.0)
-
-
+        static var desTextColor = UIColor.init(red: 42/255, green: 80/255, blue: 80/255, alpha: 1.0)
     }
 }

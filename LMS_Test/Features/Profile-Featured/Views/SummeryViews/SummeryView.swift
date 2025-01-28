@@ -38,6 +38,12 @@ class SummeryView : BindView<FeaturedViewModel> {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    lazy var descAndHonsView: DescAndHonsView = {
+        let view = DescAndHonsView(with: viewModel)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     
     override func setupViews() {
@@ -46,6 +52,7 @@ class SummeryView : BindView<FeaturedViewModel> {
         addSubview(topPlayersView)
         addSubview(squadListView)
         addSubview(recentVideosView)
+        addSubview(descAndHonsView)
         
         topPlayersView.collectionView.reloadData()
     }
@@ -84,6 +91,13 @@ class SummeryView : BindView<FeaturedViewModel> {
             recentVideosView.leadingAnchor.constraint(equalTo: leadingAnchor),
             recentVideosView.trailingAnchor.constraint(equalTo: trailingAnchor),
             recentVideosView.heightAnchor.constraint(equalToConstant: 1120)
+        ])
+        
+        NSLayoutConstraint.activate([
+            descAndHonsView.topAnchor.constraint(equalTo: recentVideosView.bottomAnchor, constant: 16),
+            descAndHonsView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            descAndHonsView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            descAndHonsView.heightAnchor.constraint(equalToConstant: 1120)
         ])
     }
 }
