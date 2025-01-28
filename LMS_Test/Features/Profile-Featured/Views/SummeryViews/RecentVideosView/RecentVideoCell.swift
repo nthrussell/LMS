@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RecentVideoCell: UITableViewCell {
     static let identifier = "RecentVideoCell"
@@ -74,6 +75,7 @@ class RecentVideoCell: UITableViewCell {
         selectionStyle = .none // Disable the gray background on selection
         contentView.backgroundColor = Constant.Colors.BGColor
         contentView.addSubview(containerView)
+        
         containerView.addSubview(videoImageView)
         containerView.addSubview(tagLabel)
         containerView.addSubview(titleLabel)
@@ -124,8 +126,8 @@ class RecentVideoCell: UITableViewCell {
         ])
     }
     
-    func configure(image: UIImage, tag: String, title: String, description: String, shareText: String) {
-        videoImageView.image = image
+    func configure(image: String, tag: String, title: String, description: String, shareText: String) {
+        videoImageView.kf.setImage(with: URL(string: image))
         tagLabel.text = tag
         titleLabel.text = title
         descriptionLabel.text = description

@@ -200,7 +200,9 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         ])
     }
     
-    func updateUI(with hons: HonourAndAward) {
-        
+    func updateUI(with desc:TeamDescription, and hons: HonourAndAward) {
+        desDescriptionLabel.text = desc.teamDescription
+        row1ValueLabel.text = "\(hons.champion)"
+        row2ValueLabel.text = "\(hons.runnersUp)"
     }
 }

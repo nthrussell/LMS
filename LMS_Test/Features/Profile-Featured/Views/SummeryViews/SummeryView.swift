@@ -51,8 +51,8 @@ class SummeryView : BindView<FeaturedViewModel> {
         return view
     }()
     
-    lazy var upcomingFixturesView: RecentResultsView = {
-        let view = RecentResultsView(with: viewModel)
+    lazy var upcomingFixturesView: UpcomingResultsView = {
+        let view = UpcomingResultsView(with: viewModel)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -125,7 +125,7 @@ class SummeryView : BindView<FeaturedViewModel> {
             upcomingFixturesView.topAnchor.constraint(equalTo: recentResultsView.bottomAnchor, constant: 16),
             upcomingFixturesView.leadingAnchor.constraint(equalTo: leadingAnchor),
             upcomingFixturesView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            upcomingFixturesView.heightAnchor.constraint(equalToConstant: 790)
+            upcomingFixturesView.heightAnchor.constraint(equalToConstant: 690)
         ])
     }
 }

@@ -1,15 +1,15 @@
 //
-//  RecentResultsCell.swift
+//  UpcomingResultsCell.swift
 //  LMS_Test
 //
-//  Created by russel on 28/1/25.
+//  Created by russel on 29/1/25.
 //
 
 import UIKit
 import Kingfisher
 
-class RecentResultsCell: UITableViewCell {
-    static let identifier = "RecentResultsCell"
+class UpcomingResultsCell: UITableViewCell {
+    static let identifier = "UpcomingResultsCell"
     
     private let dateLabel: UILabel = {
         let label = UILabel()

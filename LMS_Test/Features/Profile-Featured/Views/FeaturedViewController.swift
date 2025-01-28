@@ -34,6 +34,22 @@ class FeaturedViewController: BindViewController<FeaturedView, FeaturedViewModel
                 self.rootView.summaryView.topPlayersView.update(with: array)
             }
             
+            if let recentVideos = self.viewModel.recentVideos {
+                Logger.log("Recent videos: \(recentVideos)")
+                self.rootView.summaryView.recentVideosView.updateUI(with: recentVideos)
+            }
+            
+            if let desc = self.viewModel.teamDescription,
+               let hons = self.viewModel.honours {
+                self.rootView.summaryView.descAndHonsView.updateUI(with: desc, and: hons)
+            }
+            
+            if let recentResults = self.viewModel.recentResults,
+               let upcomingFixture = self.viewModel.upcomingFixtures {
+                self.rootView.summaryView.recentResultsView.updateUI(with: recentResults)
+                self.rootView.summaryView.upcomingFixturesView.updateUI(with: upcomingFixture)
+            }
+            
             self.viewModel.getSquadList {
                 if let squadList = self.viewModel.squadList {
                     self.rootView.summaryView.squadListView.updateUI(with: squadList)

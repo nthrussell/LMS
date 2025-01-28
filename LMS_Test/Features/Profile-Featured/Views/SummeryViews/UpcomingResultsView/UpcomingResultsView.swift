@@ -1,13 +1,13 @@
 //
-//  RecentResultsView.swift
+//  UpcomingResultsView.swift
 //  LMS_Test
 //
-//  Created by russel on 28/1/25.
+//  Created by russel on 29/1/25.
 //
 
 import UIKit
 
-class RecentResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableViewDelegate {
+class UpcomingResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - TableView
     private let tableView: UITableView = {
@@ -17,7 +17,7 @@ class RecentResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, UIT
         tableView.layer.borderWidth = 0.5
         tableView.layer.borderColor = Constant.Colors.AccentColor.withAlphaComponent(0.5).cgColor
         tableView.layer.cornerRadius = 8
-        tableView.register(RecentResultsCell.self, forCellReuseIdentifier: RecentResultsCell.identifier)
+        tableView.register(UpcomingResultsCell.self, forCellReuseIdentifier: UpcomingResultsCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -25,7 +25,7 @@ class RecentResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, UIT
     // MARK: - Header Title View
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "RECENT RESULTS"
+        label.text = "Upcoming RESULTS"
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textAlignment = .center
         label.textColor = .black
@@ -47,7 +47,7 @@ class RecentResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, UIT
         return button
     }()
     
-    var recentResults: [RecentResult]?
+    var UpcomingResults: [UpcomingFixture]?
     
     override func setupViews() {
         addSubview(tableView)
@@ -101,29 +101,29 @@ class RecentResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, UIT
         ])
     }
     
-    func updateUI(with recentResults: [RecentResult]) {
-        self.recentResults = recentResults
+    func updateUI(with UpcomingResults: [UpcomingFixture]) {
+        self.UpcomingResults = UpcomingResults
         tableView.reloadData()
     }
     
     // MARK: - TableView DataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recentResults?.count ?? 0
+        return UpcomingResults?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentResultsCell.identifier, for: indexPath) as? RecentResultsCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UpcomingResultsCell.identifier, for: indexPath) as? UpcomingResultsCell else {
             return UITableViewCell()
         }
         
-        if let result = recentResults?[indexPath.row] {
+        if let result = UpcomingResults?[indexPath.row] {
             cell.configure(
                 date: result.dateTime,
                 sideA: result.teamName,
                 sideAImage: result.teamLogo,
                 sideB: result.oppTeamName,
-                sideBImage: result.oppLogo,
-                result: result.matchInfo
+                sideBImage: result.oppLogo ?? "",
+                result: "View match info"
             )
         }
         return cell

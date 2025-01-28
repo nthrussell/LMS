@@ -57,10 +57,7 @@ class RecentVideosView: BindView<FeaturedViewModel>, UITableViewDataSource, UITa
     }()
     
     // MARK: - Data Source
-    private let videos = [
-        (image: UIImage(named: "video1") ?? UIImage(), tag: "New", title: "iOS Development", description: "Learn the basics of SwiftUI and UIKit.", shareText: "Share"),
-        (image: UIImage(named: "video2") ?? UIImage(), tag: "Trending", title: "Combine Framework", description: "Discover how to use Combine effectively.", shareText: "Share")
-    ]
+    var recentVideos: [RecentVideo]?
     
     // MARK: - Setup View
     override func setupViews() {
@@ -100,17 +97,41 @@ class RecentVideosView: BindView<FeaturedViewModel>, UITableViewDataSource, UITa
         ])
     }
     
+    func updateUI(with recentVideos: [RecentVideo]) {
+        self.recentVideos = recentVideos
+        self.tableView.reloadData()
+    }
+    
+    func extractTitleFromIframe(_ iframe: String) -> String {
+        let pattern = "title=\\\"(.*?)\\\""
+        if let regex = try? NSRegularExpression(pattern: pattern, options: []),
+           let match = regex.firstMatch(in: iframe, options: [], range: NSRange(location: 0, length: iframe.utf16.count)) {
+            if let range = Range(match.range(at: 1), in: iframe) {
+                return String(iframe[range])
+            }
+        }
+        return "No Description Available"
+    }
+    
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return recentVideos?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecentVideoCell.identifier, for: indexPath) as? RecentVideoCell else {
             return UITableViewCell()
         }
-//        let video = videos[indexPath.row]
-//        cell.configure(image: video.image, tag: video.tag, title: video.title, description: video.description, shareText: video.shareText)
+        if let video = recentVideos?[indexPath.row] {
+            let description = extractTitleFromIframe(video.playbackUrl)
+            cell.configure(
+                image: video.youtube, // Use YouTube thumbnail if available
+                tag: "\(video.teamId)",
+                title: video.fixDate,
+                description: description,
+                shareText: ""
+            )
+        }
         return cell
     }
 }
