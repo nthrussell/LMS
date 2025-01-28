@@ -54,7 +54,7 @@ class TOPPlayersView: BindView<FeaturedViewModel> {
             collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 600)
+            collectionView.heightAnchor.constraint(equalToConstant: 620)
         ])
     }
 }
@@ -74,7 +74,7 @@ extension TOPPlayersView: UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension TOPPlayersView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 42, height: 580)
+        return CGSize(width: collectionView.frame.width - 42, height: 600)
     }
 }
 
@@ -85,7 +85,7 @@ class PlayerCollectionViewCell: UICollectionViewCell {
     // Container View with green border
     private let containerView: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 1
+        view.layer.borderWidth = 0.5
         view.layer.borderColor = Constant.Colors.AccentColor.cgColor
         view.layer.cornerRadius = 4
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -161,7 +161,6 @@ class PlayerCollectionViewCell: UICollectionViewCell {
     private let rowStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 8
         stackView.distribution = .fillEqually
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -171,8 +170,9 @@ class PlayerCollectionViewCell: UICollectionViewCell {
     private let seeFullListButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("SEE FULL LIST", for: .normal)
-        button.setTitleColor(Constant.Colors.AccentColor, for: .normal)
-        button.layer.borderWidth = 1
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16) // Set bold font with size 16
+        button.layer.borderWidth = 0.5
         button.layer.borderColor = Constant.Colors.AccentColor.cgColor
         button.layer.cornerRadius = 4
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -250,12 +250,12 @@ class PlayerCollectionViewCell: UICollectionViewCell {
             rowStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             
             // See full list button
-            seeFullListButton.topAnchor.constraint(equalTo: rowStackView.bottomAnchor, constant: 16),
+            seeFullListButton.topAnchor.constraint(equalTo: rowStackView.bottomAnchor, constant: 8),
             seeFullListButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             seeFullListButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
             seeFullListButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
             seeFullListButton.heightAnchor.constraint(equalToConstant: 45),
-            seeFullListButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16)
+            seeFullListButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8)
         ])
     }
     
@@ -289,13 +289,13 @@ class PlayerCollectionViewCell: UICollectionViewCell {
         let topRightLabel = UILabel()
         topRightLabel.text = "NAT/WRLD RANK"
         topRightLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)
-        topRightLabel.textColor = Constant.Colors.AccentColor.withAlphaComponent(0.5)
+        topRightLabel.textColor = Constant.Colors.deepGreenColor.withAlphaComponent(0.4)
         topRightLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let bottomRightLabel = UILabel()
         bottomRightLabel.text = "41/08"
         bottomRightLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        topRightLabel.textColor = Constant.Colors.AccentColor
+        bottomRightLabel.textColor = Constant.Colors.AccentColor.withAlphaComponent(0.9)
         bottomRightLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let separatorView = UIView()
@@ -348,7 +348,6 @@ class PlayerCollectionViewCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            
             separatorView.leadingAnchor.constraint(equalTo: rowView.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: rowView.trailingAnchor),
             separatorView.bottomAnchor.constraint(equalTo: rowView.bottomAnchor),

@@ -172,10 +172,6 @@ class SquadListCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.layer.cornerRadius = 8
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.1
-        view.layer.shadowOffset = CGSize(width: 0, height: 2)
-        view.layer.shadowRadius = 4
         view.clipsToBounds = false // Keep shadow visible
         return view
     }()
@@ -187,7 +183,7 @@ class SquadListCell: UICollectionViewCell {
         imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
-        imageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner] 
+        imageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

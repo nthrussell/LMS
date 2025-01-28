@@ -20,7 +20,7 @@ class ProfileViewController: BindViewController<ProfileView, ProfileViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Constant.Colors.BGColor
         
         featuredCoordinator.start()
         proCoordinator.start()

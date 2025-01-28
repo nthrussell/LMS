@@ -17,6 +17,7 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = Constant.Colors.BGColor
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return tableView
     }()
@@ -33,6 +34,7 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
     
     private(set) lazy var summaryView: UIView = {
         let view = SummeryView(with: viewModel)
+        view.backgroundColor = Constant.Colors.BGColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -146,7 +148,7 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
                 dynamicView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
                 dynamicView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
                 dynamicView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
-                dynamicView.heightAnchor.constraint(equalToConstant: 1800) // Set height as per your requirement
+                dynamicView.heightAnchor.constraint(equalToConstant: 3500) // Set height as per your requirement
             ])
         default:
             break

@@ -32,6 +32,12 @@ class SummeryView : BindView<FeaturedViewModel> {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    lazy var recentVideosView: RecentVideosView = {
+        let view = RecentVideosView(with: viewModel)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     
     override func setupViews() {
@@ -39,6 +45,7 @@ class SummeryView : BindView<FeaturedViewModel> {
         addSubview(secondStackView)
         addSubview(topPlayersView)
         addSubview(squadListView)
+        addSubview(recentVideosView)
         
         topPlayersView.collectionView.reloadData()
     }
@@ -62,7 +69,7 @@ class SummeryView : BindView<FeaturedViewModel> {
             topPlayersView.topAnchor.constraint(equalTo: secondStackView.bottomAnchor, constant: 16),
             topPlayersView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             topPlayersView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            topPlayersView.heightAnchor.constraint(equalToConstant: 650)
+            topPlayersView.heightAnchor.constraint(equalToConstant: 700)
         ])
         
         NSLayoutConstraint.activate([
@@ -70,6 +77,13 @@ class SummeryView : BindView<FeaturedViewModel> {
             squadListView.leadingAnchor.constraint(equalTo: leadingAnchor),
             squadListView.trailingAnchor.constraint(equalTo: trailingAnchor),
             squadListView.heightAnchor.constraint(equalToConstant: 550)
+        ])
+        
+        NSLayoutConstraint.activate([
+            recentVideosView.topAnchor.constraint(equalTo: squadListView.bottomAnchor, constant: 16),
+            recentVideosView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            recentVideosView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            recentVideosView.heightAnchor.constraint(equalToConstant: 1120)
         ])
     }
 }

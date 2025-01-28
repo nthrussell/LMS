@@ -11,7 +11,7 @@ class FeaturedViewController: BindViewController<FeaturedView, FeaturedViewModel
     weak var coordinator: FeaturedCoordinator?
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
+        view.backgroundColor = Constant.Colors.BGColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
