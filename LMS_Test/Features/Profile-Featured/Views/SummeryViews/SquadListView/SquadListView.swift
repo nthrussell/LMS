@@ -78,6 +78,8 @@ class SquadListView: BindView<FeaturedViewModel> {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    var squadList: [SquadListModel]?
 
     // MARK: - Setup View
     override func setupViews() {
@@ -134,20 +136,35 @@ class SquadListView: BindView<FeaturedViewModel> {
         // Set Z index
         bringSubviewToFront(backgroundB)
     }
+    
+    func updateUI(with squadList: [SquadListModel]) {
+        self.squadList = squadList
+        self.collectionView.reloadData()
+    }
 }
 
 extension SquadListView:  UICollectionViewDelegate, UICollectionViewDataSource {
     // MARK: - CollectionView DataSource
       func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-          return 3
+          return squadList?.count ?? 0
       }
 
       func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
           guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SquadListCell.identifier, for: indexPath) as? SquadListCell else {
               return UICollectionViewCell()
           }
-          //let player = players[indexPath.item]
-          //cell.configure(image: player.image, name: player.name, batsman: player.batsman, bowler: player.bowler)
+          
+          if let player = squadList {
+              let player = squadList?[indexPath.item]
+              cell.configure(
+                image: player?.userPicture ?? "",
+                name: "\(player?.firstName ?? "") \(player?.lastName ?? "")",
+                batsman: player?.playerInfo.rawValue ?? "",
+                bowler: player?.playerInfo.rawValue ?? ""
+              )
+          }
+         
+          
           return cell
       }
 

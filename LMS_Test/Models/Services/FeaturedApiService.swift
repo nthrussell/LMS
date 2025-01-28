@@ -10,6 +10,8 @@ import Combine
 
 protocol FeaturedApiService {
     func fetchSummery() -> AnyPublisher<FeaturedModel, Error>
+    func fetchSquadList() -> AnyPublisher<[SquadListModel], Error>
+    
 }
 
 class DefaultFeaturedApiService: FeaturedApiService {
@@ -24,6 +26,14 @@ class DefaultFeaturedApiService: FeaturedApiService {
                 
         return networkProvider.load(URLRequest(url: url))
             .decode(type: FeaturedModel.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+    
+    func fetchSquadList() -> AnyPublisher<[SquadListModel], Error> {
+        let url = URL(string: Constant.URL.baseURL + "/GetWorldTeamProfile?typeId=1&teamId=7027")!
+                
+        return networkProvider.load(URLRequest(url: url))
+            .decode(type: [SquadListModel].self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
 }

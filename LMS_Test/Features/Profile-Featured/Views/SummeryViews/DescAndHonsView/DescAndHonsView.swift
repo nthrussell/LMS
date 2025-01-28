@@ -199,4 +199,8 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
             viewAllButton.bottomAnchor.constraint(equalTo: honsContainer.bottomAnchor, constant: -16)
         ])
     }
+    
+    func updateUI(with hons: HonourAndAward) {
+        
+    }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 // MARK: - Collection View Cell
 class SquadListCell: UICollectionViewCell {
@@ -22,7 +23,7 @@ class SquadListCell: UICollectionViewCell {
     
     private let playerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 8
@@ -110,8 +111,8 @@ class SquadListCell: UICollectionViewCell {
         ])
     }
     
-    func configure(image: UIImage, name: String, batsman: String, bowler: String) {
-        playerImageView.image = image
+    func configure(image: String, name: String, batsman: String, bowler: String) {
+        playerImageView.kf.setImage(with: URL(string: image))
         playerNameLabel.text = name
         batsmanLabel.text = batsman
         bowlerLabel.text = bowler

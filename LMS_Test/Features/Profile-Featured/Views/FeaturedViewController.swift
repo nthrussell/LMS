@@ -31,11 +31,15 @@ class FeaturedViewController: BindViewController<FeaturedView, FeaturedViewModel
                 array.append(topBatsman)
                 array.append(topBowlers)
                 array.append(topAllRounder)
-                Logger.log("Top player Array is: \(array)")
-                Logger.log("Top player Array count: \(array.count)")
-
                 self.rootView.summaryView.topPlayersView.update(with: array)
             }
+            
+            self.viewModel.getSquadList {
+                if let squadList = self.viewModel.squadList {
+                    self.rootView.summaryView.squadListView.updateUI(with: squadList)
+                }
+            }
+            
             
             self.rootView.headerView.layoutIfNeeded()
             self.rootView.tableView.reloadData()

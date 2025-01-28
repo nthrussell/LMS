@@ -11,6 +11,7 @@ import Combine
 protocol FeaturedViewModel {
     var featuredApiService: FeaturedApiService { get }
     func callApi(onCompletion: @escaping () -> Void)
+    func getSquadList(onCompletion: @escaping () -> Void)
     
     var teamDescription: TeamDescription? { get set }
     var firstStack: FirstStack? { get set }
@@ -18,6 +19,7 @@ protocol FeaturedViewModel {
     var topBatsman: [TopPlayer]? { get set }
     var topBowler: [TopPlayer]? { get set }
     var topAllRounder: [TopPlayer]? { get set }
+    var squadList: [SquadListModel]? { get set }
     var honours: HonourAndAward? { get set }
     var recentResults: [RecentResult]? { get set }
     var upcomingFixtures: [UpcomingFixture]? { get set }
@@ -35,6 +37,7 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
     var topBatsman: [TopPlayer]?
     var topBowler: [TopPlayer]?
     var topAllRounder: [TopPlayer]?
+    var squadList: [SquadListModel]?
     var honours: HonourAndAward?
     var recentResults: [RecentResult]?
     var upcomingFixtures: [UpcomingFixture]?
@@ -67,17 +70,25 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
                 recentVideos = payload.mapToRecentVideos()
                 tournaments = payload.mapToTournaments()
                 
-//                Logger.log("Team Description: \(teamDescription)")
-//                Logger.log("First Stack: \(firstStack)")
-//                Logger.log("Second Stack: \(secondStack)")
-                  Logger.log("Players: \(topBatsman)")
-//                Logger.log("Honours: \(honours)")
-//                Logger.log("Recent Results: \(recentResults)")
-//                Logger.log("Upcoming Fixtures: \(upcomingFixtures)")
-//                Logger.log("Recent Videos: \(recentVideos)")
-//                Logger.log("Tournaments: \(tournaments)")
                 onCompletion()
             }
             .store(in: &cancellable)
     }
+    
+    func getSquadList(onCompletion: @escaping () -> Void) {
+        featuredApiService
+            .fetchSquadList()
+            .receive(on: DispatchQueue.main)
+            .sink { status in
+                debugPrint("status is:\(status)")
+            } receiveValue: { [weak self] payload in
+                guard let self = self else { return }
+                // Mapping to models
+                Logger.log("SquadList payload is:\(payload)")
+                self.squadList = payload
+                onCompletion()
+            }
+            .store(in: &cancellable)
+    }
+    
 }
