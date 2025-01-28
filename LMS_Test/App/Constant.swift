@@ -10,6 +10,12 @@ import SwiftUI
 class Constant { }
 
 extension Constant {
+    struct URL {
+        static let  baseURL = "https://newstagingshopapi.lastmanstands.com"
+    }
+}
+
+extension Constant {
     struct Screen {
         static let width  = UIScreen.main.bounds.width
         static let height = UIScreen.main.bounds.height

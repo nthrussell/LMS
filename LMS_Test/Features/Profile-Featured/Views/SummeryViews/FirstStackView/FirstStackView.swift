@@ -152,4 +152,30 @@ class FirstStackView : BindView<FeaturedViewModel> {
         
         return attributedString
     }
+    
+    func updateUI(with firstStack: FirstStack) {
+        // Update Matches box
+        let matchesValue = "\(firstStack.gamesPlayed)"
+        if let matchesLabel = box1.subviews.first(where: { $0 is UIStackView })?.subviews.last as? UILabel {
+            matchesLabel.attributedText = formattedValueText(for: matchesValue)
+        }
+        
+        // Update Win Ratio box
+        let winRatioValue = String(format: "%.2f%%", firstStack.winRatio)
+        if let winRatioLabel = box2.subviews.first(where: { $0 is UIStackView })?.subviews.last as? UILabel {
+            winRatioLabel.attributedText = formattedValueText(for: winRatioValue)
+        }
+        
+        // Update Wins box
+        let winsValue = "\(firstStack.wins)"
+        if let winsLabel = box3.subviews.first(where: { $0 is UIStackView })?.subviews.last as? UILabel {
+            winsLabel.attributedText = formattedValueText(for: winsValue)
+        }
+        
+        // Update Loses box
+        let losesValue = "\(firstStack.loses)"
+        if let losesLabel = box4.subviews.first(where: { $0 is UIStackView })?.subviews.last as? UILabel {
+            losesLabel.attributedText = formattedValueText(for: losesValue)
+        }
+    }
 }

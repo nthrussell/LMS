@@ -9,13 +9,13 @@ import UIKit
 
 class SummeryView : BindView<FeaturedViewModel> {
     
-    private(set) lazy var firstStackView: UIView = {
+    private(set) lazy var firstStackView: FirstStackView = {
         let stackView = FirstStackView(with: viewModel)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
-    private(set) lazy var secondStackView: UIView = {
+    private(set) lazy var secondStackView: SecondStackView = {
         let stackView = SecondStackView(with: viewModel)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView

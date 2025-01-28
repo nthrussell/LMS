@@ -137,7 +137,7 @@ class SecondStackView : BindView<FeaturedViewModel> {
             let font: UIFont = .systemFont(ofSize: 16, weight: .bold)
 
             if word == "W" {
-                color = Constant.Colors.deepGreenColor // Green for "W"
+                color = Constant.Colors.SegmentColor // Green for "W"
             } else if word == "L" {
                 color = .red // Red for "L"
             } else {
@@ -154,4 +154,28 @@ class SecondStackView : BindView<FeaturedViewModel> {
         return attributedString
     }
     
+    func updateUI(with secondStack: SecondStack) {
+        // Update City Rank box
+        let cityRankValue = String(format: " %02d", secondStack.regionalRank)
+        if let cityRankLabel = box1.subviews.first(where: { $0 is UIStackView })?.subviews.last as? UILabel {
+            cityRankLabel.text = cityRankValue
+        }
+        
+        // Update National Rank box
+        let nationalRankValue = String(format: " %02d", secondStack.countryRank)
+        if let nationalRankLabel = box2.subviews.first(where: { $0 is UIStackView })?.subviews.last as? UILabel {
+            nationalRankLabel.text = nationalRankValue
+        }
+        
+        // Update World Rank box
+        let worldRankValue = String(format: " %02d", secondStack.worldRank)
+        if let worldRankLabel = box3.subviews.first(where: { $0 is UIStackView })?.subviews.last as? UILabel {
+            worldRankLabel.text = worldRankValue
+        }
+        
+        // Update Form box
+        if let formLabel = box4.subviews.first(where: { $0 is UIStackView })?.subviews.last as? UILabel {
+            formLabel.attributedText = formattedFormText(for: secondStack.form)
+        }
+    }
 }

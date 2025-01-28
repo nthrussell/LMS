@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TopPlayerCell: UICollectionViewCell {
     
@@ -129,9 +130,9 @@ class TopPlayerCell: UICollectionViewCell {
         containerView.addSubview(rowStackView)
         containerView.addSubview(seeFullListButton)
         
-        for i in 1...5 {
-            rowStackView.addArrangedSubview(createRowView(number: "0\(i+1)"))
-        }
+//        for i in 1...5 {
+//            rowStackView.addArrangedSubview(createRowView(number: "0\(i+1)"))
+//        }
         
         setupConstraints()
     }
@@ -189,7 +190,42 @@ class TopPlayerCell: UICollectionViewCell {
     }
     
     
-    private func createRowView(number: String) -> UIView {
+    func configure(with players: [TopPlayer], title: String) {
+        // Update the header labels
+        if players.count < 1 { return }
+        
+        titleLabel.text = title
+        worldRankingLabel.text = "WORLD RANKING: \(players[0].worldRank)"
+        nationalRankLabel.text = "National Rank: \(players[0].nationalRank)"
+        worldRankLabel.text = "World Rank: \(players[0].worldRank)"
+        
+        // Update name label with formatted text
+        nameLabel.setFormattedText(regularText: players[0].firstName, boldText: players[0].lastName)
+        
+        // Load the profile picture
+        let url = URL(string: players[0].userPicture)
+        profileImageView.kf.setImage(with: url)
+        
+        updateRows(with: players)
+    }
+    
+    func updateRows(with players: [TopPlayer]) {
+        rowStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        
+        for i in 1..<players.count {
+            let rankText = "\(players[i].nationalRank)/\(players[i].worldRank)"
+            let rowView = createRowView(
+                imageUrl: players[i].userPicture,
+                number: "0\(i+1)",
+                rankText: rankText,
+                firstName: players[i].firstName,
+                lastName: players[i].lastName
+            )
+            rowStackView.addArrangedSubview(rowView)
+        }
+    }
+    
+    private func createRowView(imageUrl:String, number: String, rankText: String, firstName: String, lastName: String) -> UIView {
         let rowView = UIView()
         rowView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -206,8 +242,10 @@ class TopPlayerCell: UICollectionViewCell {
         circularImageView.translatesAutoresizingMaskIntoConstraints = false
         
         let titleLabel = UILabel()
-        titleLabel.text = "M A RUSSELL"
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        let fullName = "\(firstName) \(lastName)"
+        let truncatedName = String(fullName.prefix(12))
+        titleLabel.text = truncatedName
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let leftImageView = UIImageView()
@@ -222,7 +260,7 @@ class TopPlayerCell: UICollectionViewCell {
         topRightLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let bottomRightLabel = UILabel()
-        bottomRightLabel.text = "41/08"
+        bottomRightLabel.text = rankText
         bottomRightLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         bottomRightLabel.textColor = Constant.Colors.AccentColor.withAlphaComponent(0.9)
         bottomRightLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -239,44 +277,33 @@ class TopPlayerCell: UICollectionViewCell {
         rowView.addSubview(bottomRightLabel)
         rowView.addSubview(separatorView)
         
-        NSLayoutConstraint.activate([
-            numberLabel.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: 16),
-            numberLabel.centerYAnchor.constraint(equalTo: rowView.centerYAnchor)
-        ])
+        circularImageView.kf.setImage(with: URL(string: imageUrl))
         
         NSLayoutConstraint.activate([
+            numberLabel.leadingAnchor.constraint(equalTo: rowView.leadingAnchor, constant: 16),
+            numberLabel.centerYAnchor.constraint(equalTo: rowView.centerYAnchor),
+            
             circularImageView.leadingAnchor.constraint(equalTo: numberLabel.trailingAnchor, constant: 8),
             circularImageView.centerYAnchor.constraint(equalTo: rowView.centerYAnchor),
             circularImageView.widthAnchor.constraint(equalToConstant: 46),
             circularImageView.heightAnchor.constraint(equalToConstant: 46),
-        ])
-        
-        NSLayoutConstraint.activate([
+            
             titleLabel.topAnchor.constraint(equalTo: circularImageView.topAnchor, constant: 4),
             titleLabel.leadingAnchor.constraint(equalTo: circularImageView.trailingAnchor, constant: 8),
-        ])
-        
-        NSLayoutConstraint.activate([
+            
             leftImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             leftImageView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             leftImageView.widthAnchor.constraint(equalToConstant: 20),
             leftImageView.heightAnchor.constraint(equalToConstant: 20),
-        ])
-        
-        
-        NSLayoutConstraint.activate([
+            
             topRightLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor),
             topRightLabel.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -12),
             topRightLabel.heightAnchor.constraint(equalToConstant: 14),
-        ])
-        
-        NSLayoutConstraint.activate([
+            
             bottomRightLabel.trailingAnchor.constraint(equalTo: rowView.trailingAnchor, constant: -12),
             bottomRightLabel.topAnchor.constraint(equalTo: topRightLabel.bottomAnchor, constant: 4),
             bottomRightLabel.heightAnchor.constraint(equalToConstant: 14),
-        ])
-        
-        NSLayoutConstraint.activate([
+            
             separatorView.leadingAnchor.constraint(equalTo: rowView.leadingAnchor),
             separatorView.trailingAnchor.constraint(equalTo: rowView.trailingAnchor),
             separatorView.bottomAnchor.constraint(equalTo: rowView.bottomAnchor),

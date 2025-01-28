@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import Kingfisher
 
-class HeaderView: BindView<FeaturedViewModel> {
+class FeatureHeaderView: BindView<FeaturedViewModel> {
     
     private(set) lazy var headerView: UIView = {
         let view = UIView()
@@ -18,7 +19,7 @@ class HeaderView: BindView<FeaturedViewModel> {
     private(set) lazy var teamLogoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .lightGray
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -36,7 +37,7 @@ class HeaderView: BindView<FeaturedViewModel> {
     
     private(set) lazy var sponsorImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
+        imageView.backgroundColor = .white
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +53,7 @@ class HeaderView: BindView<FeaturedViewModel> {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+        
     override func setupViews() {
         addSubview(headerView)
         headerView.addSubview(teamLogoImageView)
@@ -94,6 +95,15 @@ class HeaderView: BindView<FeaturedViewModel> {
             sponsorLabel.trailingAnchor.constraint(equalTo: sponsorImageView.trailingAnchor),
             sponsorLabel.leadingAnchor.constraint(equalTo: sponsorImageView.leadingAnchor)
         ])
+    }
+    
+    func updateUI(teamDescription: TeamDescription) {
+        Logger.log("HeaderView updateUI Called")
+        let teamURL = URL(string: teamDescription.teamLogo ?? "")
+        teamLogoImageView.kf.setImage(with: teamURL)
+        teamNameLabel.text = teamDescription.teamName
+        let sponsorURL = URL(string: teamDescription.sponsorLogo ?? "")
+        sponsorImageView.kf.setImage(with: sponsorURL)
     }
     
 }

@@ -35,6 +35,8 @@ class TOPPlayersView: BindView<FeaturedViewModel> {
         return collectionView
     }()
     
+    var topPlayers: [[TopPlayer]] = [[]]
+    
     override func setupViews() {
         addSubview(titleLabel)
         addSubview(collectionView)
@@ -57,17 +59,33 @@ class TOPPlayersView: BindView<FeaturedViewModel> {
             collectionView.heightAnchor.constraint(equalToConstant: 620)
         ])
     }
+    
+    func update(with topPlayers: [[TopPlayer]]) {
+        self.topPlayers = topPlayers
+        self.collectionView.reloadData()
+    }
 }
 
 extension TOPPlayersView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return topPlayers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopPlayerCell.identifier, for: indexPath) as? TopPlayerCell else {
             return UICollectionViewCell()
         }
+        
+        var title = ""
+        if indexPath.row == 0 {
+            title = "TOP BATSMEN"
+        } else if indexPath.row == 1 {
+            title = "TOP BOWLERS"
+        } else {
+            title = "TOP ALL ROUNDERS"
+        }
+        cell.configure(with: topPlayers[indexPath.row], title: title)
+        
         return cell
     }
 }

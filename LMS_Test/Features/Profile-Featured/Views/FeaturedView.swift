@@ -22,8 +22,8 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
         return tableView
     }()
     
-    private(set) lazy var headerView: UIView = {
-        let view = HeaderView(with: viewModel)
+    private(set) lazy var headerView: FeatureHeaderView = {
+        let view = FeatureHeaderView(with: viewModel)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -32,7 +32,7 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
     private(set) lazy var battingButton: UIButton = createTabButton(title: "Batting", tag: 1)
     private(set) lazy var bowlingButton: UIButton = createTabButton(title: "Bowling", tag: 2)
     
-    private(set) lazy var summaryView: UIView = {
+    private(set) lazy var summaryView: SummeryView = {
         let view = SummeryView(with: viewModel)
         view.backgroundColor = Constant.Colors.BGColor
         view.translatesAutoresizingMaskIntoConstraints = false
