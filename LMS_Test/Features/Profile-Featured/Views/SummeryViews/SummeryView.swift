@@ -27,10 +27,19 @@ class SummeryView : BindView<FeaturedViewModel> {
         return view
     }()
     
+    lazy var squadListView: SquadListView = {
+        let view = SquadListView(with: viewModel)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    
     override func setupViews() {
         addSubview(firstStackView)
         addSubview(secondStackView)
         addSubview(topPlayersView)
+        addSubview(squadListView)
+        
         topPlayersView.collectionView.reloadData()
     }
     
@@ -53,7 +62,14 @@ class SummeryView : BindView<FeaturedViewModel> {
             topPlayersView.topAnchor.constraint(equalTo: secondStackView.bottomAnchor, constant: 16),
             topPlayersView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             topPlayersView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            topPlayersView.heightAnchor.constraint(equalToConstant: 400)
+            topPlayersView.heightAnchor.constraint(equalToConstant: 650)
+        ])
+        
+        NSLayoutConstraint.activate([
+            squadListView.topAnchor.constraint(equalTo: topPlayersView.bottomAnchor, constant: 16),
+            squadListView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            squadListView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            squadListView.heightAnchor.constraint(equalToConstant: 550)
         ])
     }
 }

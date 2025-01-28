@@ -74,7 +74,7 @@ extension TOPPlayersView: UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension TOPPlayersView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 42, height: 600)
+        return CGSize(width: collectionView.frame.width - 42, height: 580)
     }
 }
 
