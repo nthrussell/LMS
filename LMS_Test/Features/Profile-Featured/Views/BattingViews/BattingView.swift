@@ -13,7 +13,7 @@ class BattingView: BindView<FeaturedViewModel>, UITableViewDelegate, UITableView
     private let showFormerPlayersButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("SHOW FORMER PLAYERS", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.contentHorizontalAlignment = .right
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
