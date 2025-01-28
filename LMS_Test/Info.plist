@@ -19,9 +19,5 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSFaceIDUsageDescription</key>
-	<string>LMS requires Face ID to Log In</string>
-	<key>UIStatusBarHidden</key>
-	<true/>
 </dict>
 </plist>
