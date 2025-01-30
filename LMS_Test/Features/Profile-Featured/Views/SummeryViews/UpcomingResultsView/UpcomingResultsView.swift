@@ -95,8 +95,8 @@ class UpcomingResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, U
     override func setupLayouts() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }

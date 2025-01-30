@@ -150,8 +150,8 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         NSLayoutConstraint.activate([
             // DesContainer
             desContainer.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            desContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            desContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            desContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            desContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             
             desTitleLabel.topAnchor.constraint(equalTo: desContainer.topAnchor, constant: 16),
             desTitleLabel.leadingAnchor.constraint(equalTo: desContainer.leadingAnchor, constant: 16),
@@ -164,8 +164,8 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
             
             // HonsContainer
             honsContainer.topAnchor.constraint(equalTo: desContainer.bottomAnchor, constant: 10),
-            honsContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            honsContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            honsContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            honsContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             
             honsTitleLabel.topAnchor.constraint(equalTo: honsContainer.topAnchor, constant: 16),
             honsTitleLabel.leadingAnchor.constraint(equalTo: honsContainer.leadingAnchor, constant: 16),
