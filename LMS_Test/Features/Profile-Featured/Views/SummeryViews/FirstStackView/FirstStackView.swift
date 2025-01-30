@@ -9,25 +9,25 @@ import UIKit
 class FirstStackView : BindView<FeaturedViewModel> {
     
     private(set) lazy var box1: UIView = {
-        let view = createBox(title: "Matches", value: "1327")
+        let view = createBox(title: "Matches", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private(set) lazy var box2: UIView = {
-        let view = createBox(title: "Win Ratio", value: "64.13%")
+        let view = createBox(title: "Win Ratio", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private(set) lazy var box3: UIView = {
-        let view = createBox(title: "Wins", value: "826")
+        let view = createBox(title: "Wins", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private(set) lazy var box4: UIView = {
-        let view = createBox(title: "Loses", value: "501")
+        let view = createBox(title: "Loses", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -81,13 +81,14 @@ class FirstStackView : BindView<FeaturedViewModel> {
     
     private func createBox(title: String, value: String) -> UIView {
         let backgroundImageView = UIImageView()
-       backgroundImageView.image = UIImage(named: "firstStack_BG") // Change this to your image asset name
-       backgroundImageView.contentMode = .scaleAspectFill
-       backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-       backgroundImageView.clipsToBounds = true
+        backgroundImageView.image = UIImage(named: "firstStack_BG")
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.layer.cornerRadius = 4
+        backgroundImageView.clipsToBounds = true
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         
         let container = UIView()
-        container.layer.borderWidth = 1
+        container.layer.borderWidth = 0.5
         container.layer.borderColor = Constant.Colors.AccentColor.cgColor
         container.layer.cornerRadius = 4
         container.clipsToBounds = true
@@ -101,12 +102,12 @@ class FirstStackView : BindView<FeaturedViewModel> {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
         titleLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-
+        
         // Explicit height constraint
         NSLayoutConstraint.activate([
             titleLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
-
+        
         // Value Label
         let valueLabel = UILabel()
         valueLabel.attributedText = formattedValueText(for: value)
@@ -115,12 +116,12 @@ class FirstStackView : BindView<FeaturedViewModel> {
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
         valueLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-
+        
         // Explicit height constraint
         NSLayoutConstraint.activate([
             valueLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 40)
         ])
-
+        
         // Vertical Stack for title and value
         let stackView = UIStackView(arrangedSubviews: [titleLabel, valueLabel])
         stackView.axis = .vertical
@@ -128,18 +129,25 @@ class FirstStackView : BindView<FeaturedViewModel> {
         stackView.distribution = .fill // Ensures labels take required space
         stackView.spacing = 4
         stackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         // Add the stack view to the container
         container.addSubview(backgroundImageView)
         container.addSubview(stackView)
-
+        
+        NSLayoutConstraint.activate([
+            backgroundImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: container.topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor)
+        ])
+        
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 24),
             stackView.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -8),
             stackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
             stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -16)
         ])
-
+        
         return container
     }
     
