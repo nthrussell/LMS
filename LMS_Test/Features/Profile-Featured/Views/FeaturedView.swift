@@ -9,6 +9,14 @@ import UIKit
 
 class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableViewDelegate {
     
+    let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = Constant.Colors.AccentColor
+        return activityIndicator
+    }()
+    
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +84,7 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
     
     override func setupViews() {
         addSubview(tableView)
+        addSubview(activityIndicator)
     }
     
     override func setupLayouts() {
@@ -84,6 +93,11 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
             tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     

@@ -27,7 +27,7 @@ class FeatureHeaderView: BindView<FeaturedViewModel> {
     
     private(set) lazy var teamLogoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
+        imageView.backgroundColor = .white
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false

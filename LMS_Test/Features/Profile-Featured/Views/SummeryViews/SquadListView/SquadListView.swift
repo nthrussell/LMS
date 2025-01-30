@@ -154,7 +154,7 @@ extension SquadListView:  UICollectionViewDelegate, UICollectionViewDataSource {
               return UICollectionViewCell()
           }
           
-          if let player = squadList {
+          if let _ = squadList {
               let player = squadList?[indexPath.item]
               cell.configure(
                 image: player?.userPicture ?? "",

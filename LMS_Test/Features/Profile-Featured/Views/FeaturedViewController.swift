@@ -13,7 +13,9 @@ class FeaturedViewController: BindViewController<FeaturedView, FeaturedViewModel
     override func viewDidLoad() {
         view.backgroundColor = Constant.Colors.BGColor
         
+        rootView.activityIndicator.startAnimating()
         viewModel.callApi {
+            self.rootView.activityIndicator.stopAnimating()
             Logger.log("api called")
             if let desc = self.viewModel.teamDescription,
                let firstStack = self.viewModel.firstStack,
