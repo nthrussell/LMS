@@ -32,34 +32,34 @@ class FirstStackView : BindView<FeaturedViewModel> {
         return view
     }()
     
-    private(set) lazy var row1: UIStackView = {
+    private(set) lazy var row1StackView: UIStackView = {
         let row1 = UIStackView(arrangedSubviews: [box1, box2])
         row1.axis = .horizontal
         row1.alignment = .fill
         row1.distribution = .fillEqually
+        row1.spacing = 8
         row1.translatesAutoresizingMaskIntoConstraints = false
-        row1.spacing = 16
         return row1
     }()
     
-    private(set) lazy var row2: UIStackView = {
+    private(set) lazy var row2StackView: UIStackView = {
         // Row 2
         let row2 = UIStackView(arrangedSubviews: [box3, box4])
         row2.axis = .horizontal
         row2.alignment = .fill
         row2.distribution = .fillEqually
-        row2.spacing = 16 // Space between boxes in the row
+        row2.spacing = 8
         row2.translatesAutoresizingMaskIntoConstraints = false
         return row2
     }()
     
     private(set) lazy var mainStackView: UIStackView = {
         // Main vertical stack view
-        let mainStackView = UIStackView(arrangedSubviews: [row1, row2])
+        let mainStackView = UIStackView(arrangedSubviews: [row1StackView, row2StackView])
         mainStackView.axis = .vertical
         mainStackView.alignment = .fill
         mainStackView.distribution = .fillEqually
-        mainStackView.spacing = 8 // Space between rows
+        mainStackView.spacing = 8
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         return mainStackView
     }()
@@ -72,14 +72,20 @@ class FirstStackView : BindView<FeaturedViewModel> {
     override func setupLayouts() {
         // Set constraints for the main stack view
         NSLayoutConstraint.activate([
-            mainStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            mainStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            mainStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mainStackView.topAnchor.constraint(equalTo: topAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
     private func createBox(title: String, value: String) -> UIView {
+        let backgroundImageView = UIImageView()
+       backgroundImageView.image = UIImage(named: "firstStack_BG") // Change this to your image asset name
+       backgroundImageView.contentMode = .scaleAspectFill
+       backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+       backgroundImageView.clipsToBounds = true
+        
         let container = UIView()
         container.layer.borderWidth = 1
         container.layer.borderColor = Constant.Colors.AccentColor.cgColor
@@ -89,34 +95,51 @@ class FirstStackView : BindView<FeaturedViewModel> {
         // Title Label
         let titleLabel = UILabel()
         titleLabel.text = title
-        titleLabel.font = .systemFont(ofSize: 16, weight: .regular)
+        titleLabel.font = .systemFont(ofSize: 14, weight: .regular)
         titleLabel.textColor = .darkGray
         titleLabel.textAlignment = .left
-        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        titleLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+
+        // Explicit height constraint
+        NSLayoutConstraint.activate([
+            titleLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
+
         // Value Label
         let valueLabel = UILabel()
-        valueLabel.attributedText = formattedValueText(for: value) // Use attributed text here
+        valueLabel.attributedText = formattedValueText(for: value)
         valueLabel.textAlignment = .left
-        valueLabel.numberOfLines = 1 // Ensure it doesn't wrap
-        
+        valueLabel.numberOfLines = 1
+        valueLabel.translatesAutoresizingMaskIntoConstraints = false
+        valueLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
+        valueLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+
+        // Explicit height constraint
+        NSLayoutConstraint.activate([
+            valueLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 40)
+        ])
+
         // Vertical Stack for title and value
         let stackView = UIStackView(arrangedSubviews: [titleLabel, valueLabel])
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fill // Ensures labels take required space
         stackView.spacing = 4
-        
-        // Add the stack view to the container
-        container.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
+        // Add the stack view to the container
+        container.addSubview(backgroundImageView)
+        container.addSubview(stackView)
+
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 24), // Add some padding
+            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 24),
             stackView.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -8),
             stackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
-            stackView.bottomAnchor.constraint(lessThanOrEqualTo: container.bottomAnchor, constant: -8)
+            stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -16)
         ])
-        
+
         return container
     }
     
@@ -125,8 +148,8 @@ class FirstStackView : BindView<FeaturedViewModel> {
         let parts = value.split(separator: ".", maxSplits: 1, omittingEmptySubsequences: false)
         
         // Define fonts
-        let largeFont = UIFont.systemFont(ofSize: 50, weight: .bold)
-        let smallFont = UIFont.systemFont(ofSize: 25, weight: .bold)
+        let largeFont = UIFont.systemFont(ofSize: 48, weight: .bold)
+        let smallFont = UIFont.systemFont(ofSize: 24, weight: .bold)
         
         // Create a mutable attributed string
         let attributedString = NSMutableAttributedString()
