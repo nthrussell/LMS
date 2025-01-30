@@ -73,7 +73,7 @@ class SummeryView : BindView<FeaturedViewModel> {
     
     override func setupLayouts() {
         NSLayoutConstraint.activate([
-            firstStackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            firstStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             firstStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             firstStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             firstStackView.heightAnchor.constraint(equalToConstant: 200)
