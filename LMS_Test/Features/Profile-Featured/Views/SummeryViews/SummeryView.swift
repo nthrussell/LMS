@@ -104,7 +104,7 @@ class SummeryView : BindView<FeaturedViewModel> {
             recentVideosView.topAnchor.constraint(equalTo: squadListView.bottomAnchor, constant: 16),
             recentVideosView.leadingAnchor.constraint(equalTo: leadingAnchor),
             recentVideosView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            recentVideosView.heightAnchor.constraint(equalToConstant: 1120)
+            recentVideosView.heightAnchor.constraint(equalToConstant: 1124)
         ])
         
         NSLayoutConstraint.activate([

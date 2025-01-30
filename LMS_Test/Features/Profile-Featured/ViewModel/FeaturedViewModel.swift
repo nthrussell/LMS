@@ -70,7 +70,7 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
                 recentVideos = payload.mapToRecentVideos()
                 tournaments = payload.mapToTournaments()
                 
-                Logger.log("top batsman:\(topBatsman ?? [])")
+                Logger.log("top recentVideos:\(recentVideos ?? [])")
                 
                 onCompletion()
             }
@@ -87,7 +87,6 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
                 guard let self = self else { return }
                 // Mapping to models
                 self.squadList = payload
-                Logger.log("sqadList is:\(self.squadList)")
                 onCompletion()
             }
             .store(in: &cancellable)

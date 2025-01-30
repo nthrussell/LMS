@@ -61,7 +61,7 @@ class SquadListView: BindView<FeaturedViewModel> {
         button.backgroundColor = .white
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.red.cgColor
+        button.layer.borderColor = Constant.Colors.buttonRed.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

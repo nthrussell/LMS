@@ -80,6 +80,19 @@ struct RecentVideo: Codable {
     let youtube: String
     let fixDate: String
     let teamId: Int
+    
+    var formattedDate: String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        inputFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        
+        guard let date = inputFormatter.date(from: fixDate) else { return "" }
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "dd/MM/yy '|' 'Highlights'"
+        
+        return outputFormatter.string(from: date)
+    }
 }
 
 struct Tournament: Codable {
@@ -114,7 +127,7 @@ struct FeaturedModelArray: Codable {
     let fixDate, tournament: String?
     let position: Position?
     let winnigYear: Int?
-
+    
     enum CodingKeys: String, CodingKey {
         case teamName = "TeamName"
         case teamLogo = "TeamLogo"
@@ -181,7 +194,7 @@ extension Array where Element == [FeaturedModelArray] {
             teamDescription: descriptionArray.teamDescription
         )
     }
-
+    
     func mapToFirstStack() -> FirstStack? {
         guard let firstStackArray = self[safe: 1]?.first else { return nil }
         return FirstStack(
@@ -191,7 +204,7 @@ extension Array where Element == [FeaturedModelArray] {
             loses: firstStackArray.loses ?? 0
         )
     }
-
+    
     func mapToSecondStack() -> SecondStack? {
         guard let secondStackArray = self[safe: 2]?.first else { return nil }
         return SecondStack(
@@ -201,7 +214,7 @@ extension Array where Element == [FeaturedModelArray] {
             form: secondStackArray.form ?? ""
         )
     }
-
+    
     func mapToTopBatsman() -> [TopPlayer] {
         return self[safe: 3]?.compactMap { profileArray in
             guard let userId = profileArray.userID else { return nil }
@@ -246,7 +259,7 @@ extension Array where Element == [FeaturedModelArray] {
             )
         } ?? []
     }
-
+    
     func mapToHonourAndAward() -> HonourAndAward? {
         guard let honoursArray = self[safe: 6]?.first else { return nil }
         return HonourAndAward(
@@ -254,7 +267,7 @@ extension Array where Element == [FeaturedModelArray] {
             runnersUp: honoursArray.runnersUp ?? 0
         )
     }
-
+    
     func mapToRecentResults() -> [RecentResult] {
         return self[safe: 7]?.compactMap { profileArray in
             guard
@@ -281,7 +294,7 @@ extension Array where Element == [FeaturedModelArray] {
             )
         } ?? []
     }
-
+    
     func mapToUpcomingFixtures() -> [UpcomingFixture] {
         return self[safe: 8]?.compactMap { profileArray in
             guard
@@ -305,7 +318,7 @@ extension Array where Element == [FeaturedModelArray] {
             )
         } ?? []
     }
-
+    
     func mapToRecentVideos() -> [RecentVideo] {
         return self[safe: 9]?.compactMap { profileArray in
             guard
@@ -328,7 +341,7 @@ extension Array where Element == [FeaturedModelArray] {
             )
         } ?? []
     }
-
+    
     func mapToTournaments() -> [Tournament] {
         return self[safe: 10]?.compactMap { profileArray in
             guard

@@ -22,7 +22,7 @@ class RecentVideosView: BindView<FeaturedViewModel>, UITableViewDataSource, UITa
         let label = FormattedTextLabel()
         label.setColoredText(
             firstText: "RECENT",
-            firstTextColor: .black,
+            firstTextColor: Constant.Colors.textDeepGreenColor,
             secondText: "VIDEOS",
             secondTextColor: Constant.Colors.AccentColor
         )
@@ -44,14 +44,13 @@ class RecentVideosView: BindView<FeaturedViewModel>, UITableViewDataSource, UITa
     
     // MARK: - View More Button
     private let viewMoreButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("VIEW MORE", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        button.setTitleColor(.white, for: .normal)
+        let button = UIButton(type: .custom)
+        let image = UIImage(named: "view_more_white")
+        button.setImage(image, for: .normal)
         button.backgroundColor = Constant.Colors.deepGreenColor
         button.layer.cornerRadius = 6
         button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.red.cgColor
+        button.layer.borderColor = Constant.Colors.buttonRed.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -127,7 +126,7 @@ class RecentVideosView: BindView<FeaturedViewModel>, UITableViewDataSource, UITa
             cell.configure(
                 image: video.youtube, // Use YouTube thumbnail if available
                 tag: "\(video.teamId)",
-                title: video.fixDate,
+                title: video.formattedDate,
                 description: description,
                 shareText: ""
             )

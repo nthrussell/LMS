@@ -55,10 +55,9 @@ class RecentVideoCell: UITableViewCell {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textColor = Constant.Colors.deepGreenColor
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = Constant.Colors.textDeepGreenColor
         label.numberOfLines = 2
-        label.text = "Lorem ipsum donate dolor sit amet Lorem ipsum donate dolor sit amet"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -110,7 +109,7 @@ class RecentVideoCell: UITableViewCell {
             
             // Title Label
             titleLabel.centerYAnchor.constraint(equalTo: tagLabel.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: tagLabel.trailingAnchor, constant: 5),
+            titleLabel.leadingAnchor.constraint(equalTo: tagLabel.trailingAnchor, constant: 15),
             
             // Description Label
             descriptionLabel.topAnchor.constraint(equalTo: tagLabel.bottomAnchor, constant: 8),
@@ -120,7 +119,7 @@ class RecentVideoCell: UITableViewCell {
             // Share Button
             shareButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             shareButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
-            shareButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
+            shareButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -16),
             shareButton.heightAnchor.constraint(equalToConstant: 25),
             shareButton.widthAnchor.constraint(equalToConstant: 80)
         ])
@@ -128,8 +127,29 @@ class RecentVideoCell: UITableViewCell {
     
     func configure(image: String, tag: String, title: String, description: String, shareText: String) {
         videoImageView.kf.setImage(with: URL(string: image))
-        tagLabel.text = tag
         titleLabel.text = title
         descriptionLabel.text = description
+        
+        if let thumbnailURL = getYouTubeThumbnailURL(from: image),
+                 let url = URL(string: thumbnailURL) {
+            videoImageView.kf.setImage(with: url)
+           }
+    }
+    
+    // Helper function to get YouTube thumbnail URL
+    func getYouTubeThumbnailURL(from url: String) -> String? {
+        let pattern = #"(?<=embed/|v=|youtu\.be/|\/v\/|\/e\/|watch\?v=|&v=|\/videos\/|embed%2F|youtu\.be%2F|\/v%2F)([A-Za-z0-9_-]{11})"#
+        
+        if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
+            let nsString = url as NSString
+            let results = regex.firstMatch(in: url, options: [], range: NSRange(location: 0, length: nsString.length))
+            
+            if let range = results?.range(at: 1) {
+                let videoID = nsString.substring(with: range)
+                return "https://img.youtube.com/vi/\(videoID)/hqdefault.jpg"
+            }
+        }
+        
+        return nil
     }
 }

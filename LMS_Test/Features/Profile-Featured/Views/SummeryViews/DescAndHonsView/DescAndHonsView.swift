@@ -22,8 +22,8 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
     
     private let desTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "DESCRIPTION"
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.text = "Description"
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = Constant.Colors.AccentColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -32,7 +32,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
     private let desDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "This is the description text. It contains some regular font content. This is the description text. It contains some regular font content. This is the description text. It contains some regular font content. This is the description text. It contains some regular font content."
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = Constant.Colors.desTextColor
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
     private let honsTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Honours and Awards"
-        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = Constant.Colors.AccentColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -63,15 +63,14 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         let label = UILabel()
         label.text = "Champions"
         label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = .black
+        label.textColor = Constant.Colors.textDeepGreenColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let row1ValueLabel: UILabel = {
         let label = UILabel()
-        label.text = "1"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.font = UIFont(name: Constant.Fonts.ptSansRegular, size: 14)
         label.textColor = .black
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +79,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
     
     private let row1Separator: UIView = {
         let separator = UIView()
-        separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.5)
+        separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.4)
         separator.translatesAutoresizingMaskIntoConstraints = false
         return separator
     }()
@@ -89,15 +88,14 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         let label = UILabel()
         label.text = "Runners Up"
         label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        label.textColor = .black
+        label.textColor = Constant.Colors.textDeepGreenColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let row2ValueLabel: UILabel = {
         let label = UILabel()
-        label.text = "2"
-        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        label.font = UIFont(name: Constant.Fonts.ptSansRegular, size: 14)
         label.textColor = .black
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -106,20 +104,19 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
     
     private let row2Separator: UIView = {
         let separator = UIView()
-        separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.5)
+        separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.4)
         separator.translatesAutoresizingMaskIntoConstraints = false
         return separator
     }()
     
     private let viewAllButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("VIEW ALL HONOURS", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        button.setTitleColor(.black, for: .normal)
+        let button = UIButton(type: .custom)
+        let image = UIImage(named: "view_all_honours")
+        button.setImage(image, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.red.cgColor
+        button.layer.borderColor = Constant.Colors.buttonRed.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -195,7 +192,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
             viewAllButton.topAnchor.constraint(equalTo: row2Separator.bottomAnchor, constant: 16),
             viewAllButton.leadingAnchor.constraint(equalTo: honsContainer.leadingAnchor, constant: 8),
             viewAllButton.trailingAnchor.constraint(equalTo: honsContainer.trailingAnchor, constant: -8),
-            viewAllButton.heightAnchor.constraint(equalToConstant: 50),
+            viewAllButton.heightAnchor.constraint(equalToConstant: 40),
             viewAllButton.bottomAnchor.constraint(equalTo: honsContainer.bottomAnchor, constant: -16)
         ])
     }
