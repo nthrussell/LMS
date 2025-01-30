@@ -14,10 +14,10 @@ class FormattedTextLabel: UILabel {
         let attributedString = NSMutableAttributedString(string: fullText)
         
         // Set the regular text attributes
-        attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 16, weight: .regular), range: NSRange(location: 0, length: regularText.count))
+        attributedString.addAttribute(.font, value: UIFont(name: Constant.Fonts.ptSansRegular, size: 16)!, range: NSRange(location: 0, length: regularText.count))
         
         // Set the bold text attributes
-        attributedString.addAttribute(.font, value: UIFont.boldSystemFont(ofSize: 16), range: NSRange(location: regularText.count + 1, length: boldText.count))
+        attributedString.addAttribute(.font, value: UIFont(name: Constant.Fonts.ptSansBold, size: 16)!, range: NSRange(location: regularText.count + 1, length: boldText.count))
         
         self.attributedText = attributedString
     }

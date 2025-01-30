@@ -70,7 +70,10 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
                 recentVideos = payload.mapToRecentVideos()
                 tournaments = payload.mapToTournaments()
                 
-                Logger.log("recent videos:\(recentVideos ?? [])")
+                Logger.log("top batsman:\(topBatsman ?? [])")
+                Logger.log("top bowler:\(topBowler ?? [])")
+                Logger.log("top topAllRounder:\(topAllRounder ?? [])")
+
                 
                 onCompletion()
             }
@@ -86,7 +89,6 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
             } receiveValue: { [weak self] payload in
                 guard let self = self else { return }
                 // Mapping to models
-                Logger.log("SquadList payload is:\(payload)")
                 self.squadList = payload
                 onCompletion()
             }

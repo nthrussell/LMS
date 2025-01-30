@@ -33,3 +33,12 @@ extension Constant {
         static var desTextColor = UIColor.init(red: 42/255, green: 80/255, blue: 80/255, alpha: 1.0)
     }
 }
+
+extension Constant {
+    struct Fonts {
+        static let ptSansBold = "PTSans-Bold"
+        static let ptSansBoldItalic = "PTSans-BoldItalic"
+        static let ptSansItalic = "PTSans-Italic"
+        static let ptSansRegular = "PTSans-Regular"
+    }
+}

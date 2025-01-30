@@ -37,7 +37,6 @@ class FeaturedViewController: BindViewController<FeaturedView, FeaturedViewModel
             }
             
             if let recentVideos = self.viewModel.recentVideos {
-                Logger.log("Recent videos: \(recentVideos)")
                 self.rootView.summaryView.recentVideosView.updateUI(with: recentVideos)
             }
             
