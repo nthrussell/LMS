@@ -9,12 +9,36 @@ import UIKit
 
 class LoginView: BindView<LoginViewModel> {
     
+    private(set) lazy var containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private(set) lazy var backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "BG")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     private(set) lazy var imageView:UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "LMS")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private(set) lazy var taglineLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.text = "Start Local, Go Global"
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private(set) lazy var loginButton:UIButton = {
@@ -80,7 +104,7 @@ class LoginView: BindView<LoginViewModel> {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         button.setImage(UIImage(named:"FingerPrint"), for: .normal)
         
-        button.backgroundColor = .red
+        button.backgroundColor = .white
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(biometricButtonTap), for: .touchUpInside)
@@ -92,9 +116,13 @@ class LoginView: BindView<LoginViewModel> {
     var onTapBiometric: ((_ status: Bool) -> Void)?
     
     override func setupViews() {
-        addSubview(imageView)
-        addSubview(loginButton)
-        addSubview(loginBiometricBox)
+        addSubview(backgroundImageView)
+        addSubview(containerView)
+        
+        containerView.addSubview(imageView)
+        containerView.addSubview(taglineLabel)
+        containerView.addSubview(loginButton)
+        containerView.addSubview(loginBiometricBox)
         
         loginBiometricBox.addSubview(lmsSegmentedControl)
         lmsSegmentedControl.delegate = self
@@ -106,25 +134,46 @@ class LoginView: BindView<LoginViewModel> {
     
     override func setupLayouts() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: Constant.Screen.height * 0.55)
+            backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            loginButton.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            containerView.topAnchor.constraint(equalTo: topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: Constant.Screen.height * 0.2),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: Constant.Screen.height * 0.2),
+            imageView.widthAnchor.constraint(equalToConstant: Constant.Screen.height * 0.2)
+        ])
+        
+        NSLayoutConstraint.activate([
+            taglineLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            taglineLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            taglineLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            taglineLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            loginButton.topAnchor.constraint(equalTo: taglineLabel.bottomAnchor, constant: 60),
             loginButton.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            loginButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            loginButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            loginButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            loginButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
         ])
         
         NSLayoutConstraint.activate([
-            loginBiometricBox.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            loginBiometricBox.topAnchor.constraint(equalTo: taglineLabel.bottomAnchor, constant: 60),
             loginBiometricBox.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-            loginBiometricBox.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            loginBiometricBox.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            loginBiometricBox.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            loginBiometricBox.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             loginBiometricBox.heightAnchor.constraint(equalToConstant: Constant.Screen.height * 0.25),
         ])
         
@@ -137,7 +186,7 @@ class LoginView: BindView<LoginViewModel> {
         ])
         
         NSLayoutConstraint.activate([
-            confirmBioLabel.topAnchor.constraint(equalTo: lmsSegmentedControl.bottomAnchor, constant: 5),
+            confirmBioLabel.topAnchor.constraint(equalTo: lmsSegmentedControl.bottomAnchor, constant: 15),
             confirmBioLabel.centerXAnchor.constraint(equalTo: lmsSegmentedControl.centerXAnchor),
             confirmBioLabel.leadingAnchor.constraint(equalTo: loginBiometricBox.leadingAnchor, constant: 16),
             confirmBioLabel.trailingAnchor.constraint(equalTo: loginBiometricBox.trailingAnchor, constant: -16),
