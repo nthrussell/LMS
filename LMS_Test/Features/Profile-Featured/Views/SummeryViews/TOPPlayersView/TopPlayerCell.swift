@@ -32,10 +32,17 @@ class TopPlayerCell: UICollectionViewCell {
         return label
     }()
     
+    private let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "top-player-green")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     // Header View with green background
     private let headerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constant.Colors.AccentColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -134,6 +141,7 @@ class TopPlayerCell: UICollectionViewCell {
     private func setupViews() {
         contentView.addSubview(containerView)
         containerView.addSubview(titleLabel)
+        containerView.addSubview(backgroundImageView)
         containerView.addSubview(headerView)
         
         headerView.addSubview(worldRankingLabel)
@@ -163,6 +171,11 @@ class TopPlayerCell: UICollectionViewCell {
             titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
             
             // Header view
+            backgroundImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            backgroundImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: 120),
+            
             headerView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             headerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
@@ -257,7 +270,7 @@ class TopPlayerCell: UICollectionViewCell {
         
         let numberLabel = UILabel()
         numberLabel.text = number
-        numberLabel.font = UIFont(name: Constant.Fonts.ptSansRegular, size: 12)
+        numberLabel.font = UIFont(name: Constant.Fonts.ptSansBold, size: 12)
         numberLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let circularImageView = UIImageView()
@@ -311,7 +324,7 @@ class TopPlayerCell: UICollectionViewCell {
             numberLabel.centerYAnchor.constraint(equalTo: rowView.centerYAnchor),
             numberLabel.widthAnchor.constraint(equalToConstant: 14),
             
-            circularImageView.leadingAnchor.constraint(equalTo: numberLabel.trailingAnchor, constant: 2),
+            circularImageView.leadingAnchor.constraint(equalTo: numberLabel.trailingAnchor, constant: 4),
             circularImageView.centerYAnchor.constraint(equalTo: rowView.centerYAnchor),
             circularImageView.widthAnchor.constraint(equalToConstant: 40),
             circularImageView.heightAnchor.constraint(equalToConstant: 40),

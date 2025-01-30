@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "squad_list_bg.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -71,9 +71,6 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
                 tournaments = payload.mapToTournaments()
                 
                 Logger.log("top batsman:\(topBatsman ?? [])")
-                Logger.log("top bowler:\(topBowler ?? [])")
-                Logger.log("top topAllRounder:\(topAllRounder ?? [])")
-
                 
                 onCompletion()
             }
@@ -90,6 +87,7 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
                 guard let self = self else { return }
                 // Mapping to models
                 self.squadList = payload
+                Logger.log("sqadList is:\(self.squadList)")
                 onCompletion()
             }
             .store(in: &cancellable)

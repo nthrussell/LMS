@@ -97,7 +97,7 @@ class SummeryView : BindView<FeaturedViewModel> {
             squadListView.topAnchor.constraint(equalTo: topPlayersView.bottomAnchor, constant: 16),
             squadListView.leadingAnchor.constraint(equalTo: leadingAnchor),
             squadListView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            squadListView.heightAnchor.constraint(equalToConstant: 550)
+            squadListView.heightAnchor.constraint(equalToConstant: 570)
         ])
         
         NSLayoutConstraint.activate([

@@ -8,19 +8,17 @@
 import UIKit
 
 class SquadListView: BindView<FeaturedViewModel> {
-
-    // MARK: - Background Views
+    
+    private let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "squad-list-green")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     private let backgroundA: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Constant.Colors.deepGreenColor
-        return view
-    }()
-
-    private let backgroundB: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 25
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -57,10 +55,9 @@ class SquadListView: BindView<FeaturedViewModel> {
 
     // MARK: - View All Button
     private let viewAllButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("VIEW ALL", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        button.setTitleColor(.black, for: .normal)
+        let button = UIButton(type: .custom)
+        let image = UIImage(named: "view_all_right")
+        button.setImage(image, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 2
@@ -72,7 +69,7 @@ class SquadListView: BindView<FeaturedViewModel> {
     // MARK: - Arrow Image View
     private let arrowImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "arrow.right")
+        imageView.image = UIImage(named: "arrow_right")
         imageView.tintColor = Constant.Colors.AccentColor
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -83,13 +80,13 @@ class SquadListView: BindView<FeaturedViewModel> {
 
     // MARK: - Setup View
     override func setupViews() {
+        addSubview(backgroundImageView)
         addSubview(backgroundA)
-        addSubview(backgroundB)
+        addSubview(arrowImageView)
         
         backgroundA.addSubview(titleLabel)
         backgroundA.addSubview(collectionView)
         backgroundA.addSubview(viewAllButton)
-        backgroundB.addSubview(arrowImageView)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -98,7 +95,11 @@ class SquadListView: BindView<FeaturedViewModel> {
     // MARK: - Constraints
     override func setupLayouts() {
         NSLayoutConstraint.activate([
-            // Background A
+            backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
             backgroundA.topAnchor.constraint(equalTo: topAnchor),
             backgroundA.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundA.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -120,21 +121,15 @@ class SquadListView: BindView<FeaturedViewModel> {
             viewAllButton.widthAnchor.constraint(equalToConstant: 165),
             viewAllButton.heightAnchor.constraint(equalToConstant: 50),
             
-            // Background B
-            backgroundB.centerYAnchor.constraint(equalTo: backgroundA.centerYAnchor),
-            backgroundB.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            backgroundB.widthAnchor.constraint(equalToConstant: 50),
-            backgroundB.heightAnchor.constraint(equalToConstant: 50),
-            
             // Arrow Image View
-            arrowImageView.centerXAnchor.constraint(equalTo: backgroundB.centerXAnchor),
-            arrowImageView.centerYAnchor.constraint(equalTo: backgroundB.centerYAnchor),
-            arrowImageView.widthAnchor.constraint(equalToConstant: 24),
-            arrowImageView.heightAnchor.constraint(equalToConstant: 24),
+            arrowImageView.centerYAnchor.constraint(equalTo: backgroundA.centerYAnchor),
+            arrowImageView.trailingAnchor.constraint(equalTo: backgroundA.trailingAnchor, constant: -16),
+            arrowImageView.widthAnchor.constraint(equalToConstant: 50),
+            arrowImageView.heightAnchor.constraint(equalToConstant: 50),
         ])
         
         // Set Z index
-        bringSubviewToFront(backgroundB)
+        bringSubviewToFront(arrowImageView)
     }
     
     func updateUI(with squadList: [SquadListModel]) {

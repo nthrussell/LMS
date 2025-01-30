@@ -33,12 +33,23 @@ class SquadListCell: UICollectionViewCell {
         return imageView
     }()
     
+    private let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "squad_list_bg")
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 8
+        imageView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     private let playerNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.text = "Harry Jonson"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.text = " "
         label.textAlignment = .left
-        label.textColor = Constant.Colors.deepGreenColor
+        label.textColor = Constant.Colors.textDeepGreenColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -68,6 +79,8 @@ class SquadListCell: UICollectionViewCell {
         
         contentView.addSubview(containerView)
         containerView.addSubview(playerImageView)
+        containerView.addSubview(backgroundImageView)
+        
         containerView.addSubview(playerNameLabel)
         containerView.addSubview(batsmanLabel)
         containerView.addSubview(bowlerLabel)
@@ -93,6 +106,12 @@ class SquadListCell: UICollectionViewCell {
             playerImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             playerImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.75),
             
+            backgroundImageView.topAnchor.constraint(equalTo: playerImageView.bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            backgroundImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.25),
+            
             // Player Name Label Constraints
             playerNameLabel.topAnchor.constraint(equalTo: playerImageView.bottomAnchor, constant: 12),
             playerNameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18),
@@ -109,6 +128,10 @@ class SquadListCell: UICollectionViewCell {
             bowlerLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18),
             bowlerLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
         ])
+        
+        bringSubviewToFront(playerNameLabel)
+        bringSubviewToFront(batsmanLabel)
+        bringSubviewToFront(bowlerLabel)
     }
     
     func configure(image: String, name: String, batsman: String, bowler: String) {
