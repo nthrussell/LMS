@@ -10,6 +10,15 @@ import Kingfisher
 
 class FeatureHeaderView: BindView<FeaturedViewModel> {
     
+    private(set) lazy var backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "featured-nav")
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     private(set) lazy var headerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +37,7 @@ class FeatureHeaderView: BindView<FeaturedViewModel> {
     private(set) lazy var teamNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Team Name"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.textColor = .black
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +56,7 @@ class FeatureHeaderView: BindView<FeaturedViewModel> {
     private(set) lazy var sponsorLabel: UILabel = {
         let label = UILabel()
         label.text = "Team Sponsor"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = .black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,6 +64,7 @@ class FeatureHeaderView: BindView<FeaturedViewModel> {
     }()
         
     override func setupViews() {
+        addSubview(backgroundImageView)
         addSubview(headerView)
         headerView.addSubview(teamLogoImageView)
         headerView.addSubview(teamNameLabel)
@@ -63,6 +73,13 @@ class FeatureHeaderView: BindView<FeaturedViewModel> {
     }
     
     override func setupLayouts() {
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: 135)
+        ])
+        
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: topAnchor),
             headerView.leadingAnchor.constraint(equalTo: leadingAnchor),

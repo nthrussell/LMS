@@ -102,7 +102,7 @@ class LoginView: BindView<LoginViewModel> {
         
         button.tintColor = .white
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.setImage(UIImage(named:"FingerPrint"), for: .normal)
+        button.setImage(UIImage(named:"fingerPrint"), for: .normal)
         
         button.backgroundColor = .white
         button.layer.cornerRadius = 10
@@ -222,10 +222,10 @@ extension LoginView: LMSegmentedControlDelegate {
         switch index {
         case 0:
             scanLabel.text = "Scan Your Finger"
-            biometricButton.setImage(UIImage(named:"FingerPrint"), for: .normal)
+            biometricButton.setImage(UIImage(named:"fingerPrint"), for: .normal)
         case 1:
             scanLabel.text = "Use Face Recognition"
-            biometricButton.setImage(UIImage(named:"FaceID"), for: .normal)
+            biometricButton.setImage(UIImage(named:"faceID"), for: .normal)
         default:
             break
         }

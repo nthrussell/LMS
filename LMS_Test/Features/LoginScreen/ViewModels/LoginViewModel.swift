@@ -18,6 +18,7 @@ class DefaultLoginViewModel: ObservableObject, LoginViewModel {
            
            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
                let reason = "Authenticate with Face ID or Touch ID to access your account."
+               Logger.log("reason: \(reason)")
                
                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
                    DispatchQueue.main.async {
@@ -32,6 +33,7 @@ class DefaultLoginViewModel: ObservableObject, LoginViewModel {
                }
            } else {
                let unavailableError = error ?? NSError(domain: "BiometricLoginError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Your device does not support Face ID or Touch ID."])
+               Logger.log("unavailableError: \(unavailableError)")
                DispatchQueue.main.async {
                    completion(.failure(unavailableError))
                }

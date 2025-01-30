@@ -10,14 +10,29 @@ import UIKit
 class ProfileView: BindView<ProfileViewModel>  {
     private(set) lazy var customNavigationBar: UIView = {
         let navigationBar = UIView()
-        navigationBar.backgroundColor = Constant.Colors.AccentColor
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         return navigationBar
     }()
     
+    private(set) lazy var backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "top_nav")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     private(set) lazy var menuImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named:"LMS-Menu")
+        imageView.image = UIImage(named:"menue-icon")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private(set) lazy var logoImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named:"LMS-Logo")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -36,7 +51,6 @@ class ProfileView: BindView<ProfileViewModel>  {
     
     private(set) lazy var segmentsContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Constant.Colors.AccentColor
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -45,7 +59,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         let label = UILabel()
         label.text = "Featured"
         label.textColor = .white
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.font = .systemFont(ofSize: 16, weight: .regular)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isUserInteractionEnabled = true
@@ -58,7 +72,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         let label = UILabel()
         label.text = "Pro"
         label.textColor = .white.withAlphaComponent(0.7)
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.font = .systemFont(ofSize: 16, weight: .regular)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isUserInteractionEnabled = true
@@ -88,8 +102,10 @@ class ProfileView: BindView<ProfileViewModel>  {
     var logOutTapped: (() -> Void)?
     
     override func setupViews() {
+        addSubview(backgroundImageView)
         addSubview(customNavigationBar)
         customNavigationBar.addSubview(menuImageView)
+        customNavigationBar.addSubview(logoImageView)
         customNavigationBar.addSubview(logoutButton)
         
         addSubview(segmentsContainerView)
@@ -102,6 +118,13 @@ class ProfileView: BindView<ProfileViewModel>  {
     
     override func setupLayouts() {
         NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundImageView.heightAnchor.constraint(equalToConstant: 110)
+        ])
+        
+        NSLayoutConstraint.activate([
             customNavigationBar.topAnchor.constraint(equalTo: topAnchor),
             customNavigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             customNavigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -110,21 +133,30 @@ class ProfileView: BindView<ProfileViewModel>  {
         
         NSLayoutConstraint.activate([
             menuImageView.leadingAnchor.constraint(equalTo: customNavigationBar.leadingAnchor, constant: 16),
-            menuImageView.centerYAnchor.constraint(equalTo: customNavigationBar.centerYAnchor),
-            menuImageView.widthAnchor.constraint(equalToConstant: 64),
-            menuImageView.heightAnchor.constraint(equalToConstant: 40)
+            menuImageView.centerYAnchor.constraint(equalTo: customNavigationBar.centerYAnchor, constant: 15),
+            menuImageView.widthAnchor.constraint(equalToConstant: 20),
+            menuImageView.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        
+        NSLayoutConstraint.activate([
+            logoImageView.leadingAnchor.constraint(equalTo: menuImageView.trailingAnchor, constant: 10),
+            logoImageView.centerYAnchor.constraint(equalTo: menuImageView.centerYAnchor),
+            logoImageView.widthAnchor.constraint(equalToConstant: 30),
+            logoImageView.heightAnchor.constraint(equalToConstant: 30)
         ])
         
         NSLayoutConstraint.activate([
             logoutButton.trailingAnchor.constraint(equalTo: customNavigationBar.trailingAnchor, constant: -16),
-            logoutButton.centerYAnchor.constraint(equalTo: customNavigationBar.centerYAnchor)
+            logoutButton.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
+            logoutButton.widthAnchor.constraint(equalToConstant: 24),
+            logoutButton.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         NSLayoutConstraint.activate([
             segmentsContainerView.topAnchor.constraint(equalTo: customNavigationBar.bottomAnchor),
             segmentsContainerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             segmentsContainerView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            segmentsContainerView.heightAnchor.constraint(equalToConstant: 50)
+            segmentsContainerView.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         NSLayoutConstraint.activate([

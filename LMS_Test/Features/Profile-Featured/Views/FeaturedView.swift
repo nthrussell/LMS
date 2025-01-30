@@ -70,7 +70,7 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
     private func createTabButton(title: String, tag: Int) -> UIButton {
         let button = UIButton(type: .custom)
         button.setTitle(title, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = Constant.Colors.AccentColor // Default color for unselected state
         button.layer.cornerRadius = 5
@@ -89,6 +89,7 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
     private func updateTabButtonStates() {
         [summaryButton, battingButton, bowlingButton].forEach { button in
             button.backgroundColor = (button.tag == selectedTabIndex) ? Constant.Colors.deepGreenColor : Constant.Colors.AccentColor
+            button.heightAnchor.constraint(equalToConstant: 15).isActive = true
         }
     }
     
@@ -122,16 +123,17 @@ class FeaturedView: BindView<FeaturedViewModel>, UITableViewDataSource, UITableV
             let buttonStackView = UIStackView(arrangedSubviews: [summaryButton, battingButton, bowlingButton])
             buttonStackView.axis = .horizontal
             buttonStackView.distribution = .fillEqually
-            buttonStackView.spacing = 5
+            buttonStackView.spacing = 10
             buttonStackView.translatesAutoresizingMaskIntoConstraints = false
             
             cell.contentView.addSubview(buttonStackView)
             NSLayoutConstraint.activate([
                 buttonStackView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 8),
                 buttonStackView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 8),
-                buttonStackView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -8),
+                //buttonStackView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -60),
                 buttonStackView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -8),
-                buttonStackView.heightAnchor.constraint(equalToConstant: 40)
+                buttonStackView.heightAnchor.constraint(equalToConstant: 25),
+                buttonStackView.widthAnchor.constraint(equalToConstant: 250)
             ])
         case 2: // Dynamic content
             let dynamicView: UIView

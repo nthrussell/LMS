@@ -70,6 +70,8 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
                 recentVideos = payload.mapToRecentVideos()
                 tournaments = payload.mapToTournaments()
                 
+                Logger.log("recent videos:\(recentVideos ?? [])")
+                
                 onCompletion()
             }
             .store(in: &cancellable)
