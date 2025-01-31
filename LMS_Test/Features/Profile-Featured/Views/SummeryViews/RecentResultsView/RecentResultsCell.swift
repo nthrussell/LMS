@@ -148,6 +148,7 @@ class RecentResultsCell: UITableViewCell {
             
             sideATitleLabel.topAnchor.constraint(equalTo: sideAImageView.bottomAnchor, constant: 4),
             sideATitleLabel.trailingAnchor.constraint(equalTo: sideAImageView.trailingAnchor),
+            sideATitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
             
             // Side B
             sideBImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
@@ -157,6 +158,7 @@ class RecentResultsCell: UITableViewCell {
             
             sideBTitleLabel.topAnchor.constraint(equalTo: sideBImageView.bottomAnchor, constant: 4),
             sideBTitleLabel.leadingAnchor.constraint(equalTo: sideBImageView.leadingAnchor),
+            sideBTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
             
             // Result Label
             resultLabel.topAnchor.constraint(equalTo: sideATitleLabel.bottomAnchor, constant: 8),

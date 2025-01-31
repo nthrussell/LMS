@@ -171,7 +171,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
             desDescriptionLabel.bottomAnchor.constraint(equalTo: desContainer.bottomAnchor, constant: -16),
             
             // HonsContainer
-            honsContainer.topAnchor.constraint(equalTo: desContainer.bottomAnchor, constant: 10),
+            honsContainer.topAnchor.constraint(equalTo: desContainer.bottomAnchor, constant: 25),
             honsContainer.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             honsContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             

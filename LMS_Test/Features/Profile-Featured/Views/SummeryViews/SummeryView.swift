@@ -125,7 +125,7 @@ class SummeryView : BindView<FeaturedViewModel> {
             upcomingFixturesView.topAnchor.constraint(equalTo: recentResultsView.bottomAnchor, constant: 16),
             upcomingFixturesView.leadingAnchor.constraint(equalTo: leadingAnchor),
             upcomingFixturesView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            upcomingFixturesView.heightAnchor.constraint(equalToConstant: 690)
+            upcomingFixturesView.heightAnchor.constraint(equalToConstant: 670)
         ])
     }
 }

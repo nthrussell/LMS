@@ -22,23 +22,30 @@ class UpcomingResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, U
         return tableView
     }()
     
+    private let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "green-mandala-NEW-CODE-UPCOMING")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     // MARK: - Header Title View
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Upcoming RESULTS"
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.text = "UPCOMING FIXTURES"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     // MARK: - Footer Button View
     private let viewAllButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("VIEW ALL", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        button.setTitleColor(.black, for: .normal)
+        let button = UIButton(type: .custom)
+        let image = UIImage(named: "view_all_right")
+        button.setImage(image, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 2
@@ -61,12 +68,17 @@ class UpcomingResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, U
     private func setupTableHeader() {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 50))
         headerView.backgroundColor = Constant.Colors.AccentColor
+        
+        headerView.addSubview(backgroundImageView)
         headerView.addSubview(titleLabel)
 
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        titleLabel.textColor = .white
-
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+            backgroundImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            backgroundImageView.widthAnchor.constraint(equalTo: headerView.widthAnchor),
+            backgroundImageView.heightAnchor.constraint(equalTo: headerView.heightAnchor)
+        ])
+        
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
@@ -85,7 +97,7 @@ class UpcomingResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, U
             viewAllButton.centerXAnchor.constraint(equalTo: footerView.centerXAnchor),
             viewAllButton.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 8),
             viewAllButton.trailingAnchor.constraint(equalTo: footerView.trailingAnchor, constant: -8),
-            viewAllButton.heightAnchor.constraint(equalToConstant: 50),
+            viewAllButton.heightAnchor.constraint(equalToConstant: 40),
         ])
         
         tableView.tableFooterView = footerView
@@ -118,7 +130,7 @@ class UpcomingResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, U
         
         if let result = UpcomingResults?[indexPath.row] {
             cell.configure(
-                date: result.dateTime,
+                date: result.formattedDate,
                 sideA: result.teamName,
                 sideAImage: result.teamLogo,
                 sideB: result.oppTeamName,

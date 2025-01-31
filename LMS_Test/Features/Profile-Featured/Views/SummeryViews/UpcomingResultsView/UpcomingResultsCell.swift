@@ -25,7 +25,7 @@ class UpcomingResultsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 22
         imageView.backgroundColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -33,7 +33,7 @@ class UpcomingResultsCell: UITableViewCell {
     
     private let sideATitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Team A"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +44,7 @@ class UpcomingResultsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 22
         imageView.backgroundColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -52,7 +52,7 @@ class UpcomingResultsCell: UITableViewCell {
     
     private let sideBTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Team B"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -62,17 +62,17 @@ class UpcomingResultsCell: UITableViewCell {
     private let vsLabel: UILabel = {
         let label = UILabel()
         label.text = "VS"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textAlignment = .center
-        label.textColor = Constant.Colors.AccentColor.withAlphaComponent(0.4)
+        label.textColor = Constant.Colors.AccentColor.withAlphaComponent(0.3)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let resultLabel: UILabel = {
         let label = UILabel()
-        label.text = "Team A won"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.text = ""
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = Constant.Colors.AccentColor
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -81,7 +81,7 @@ class UpcomingResultsCell: UITableViewCell {
     
     private let separator: UIView = {
            let separator = UIView()
-           separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.5)
+           separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.3)
            separator.translatesAutoresizingMaskIntoConstraints = false
            return separator
        }()
@@ -118,21 +118,23 @@ class UpcomingResultsCell: UITableViewCell {
             
             // Side A
             sideAImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
-            sideAImageView.trailingAnchor.constraint(equalTo: vsLabel.leadingAnchor, constant: -24),
-            sideAImageView.widthAnchor.constraint(equalToConstant: 40),
-            sideAImageView.heightAnchor.constraint(equalToConstant: 40),
+            sideAImageView.trailingAnchor.constraint(equalTo: vsLabel.leadingAnchor, constant: -12),
+            sideAImageView.widthAnchor.constraint(equalToConstant: 44),
+            sideAImageView.heightAnchor.constraint(equalToConstant: 44),
             
             sideATitleLabel.topAnchor.constraint(equalTo: sideAImageView.bottomAnchor, constant: 4),
             sideATitleLabel.trailingAnchor.constraint(equalTo: sideAImageView.trailingAnchor),
+            sideATitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
             
             // Side B
             sideBImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
-            sideBImageView.leadingAnchor.constraint(equalTo: vsLabel.trailingAnchor, constant: 24),
-            sideBImageView.widthAnchor.constraint(equalToConstant: 40),
-            sideBImageView.heightAnchor.constraint(equalToConstant: 40),
+            sideBImageView.leadingAnchor.constraint(equalTo: vsLabel.trailingAnchor, constant: 12),
+            sideBImageView.widthAnchor.constraint(equalToConstant: 44),
+            sideBImageView.heightAnchor.constraint(equalToConstant: 44),
             
             sideBTitleLabel.topAnchor.constraint(equalTo: sideBImageView.bottomAnchor, constant: 4),
             sideBTitleLabel.leadingAnchor.constraint(equalTo: sideBImageView.leadingAnchor),
+            sideBTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
             
             // Result Label
             resultLabel.topAnchor.constraint(equalTo: sideATitleLabel.bottomAnchor, constant: 8),

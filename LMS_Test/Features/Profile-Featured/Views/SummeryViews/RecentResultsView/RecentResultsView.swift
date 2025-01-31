@@ -78,7 +78,9 @@ class RecentResultsView: BindView<FeaturedViewModel>, UITableViewDataSource, UIT
         
         NSLayoutConstraint.activate([
             backgroundImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            backgroundImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
+            backgroundImageView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            backgroundImageView.widthAnchor.constraint(equalTo: headerView.widthAnchor),
+            backgroundImageView.heightAnchor.constraint(equalTo: headerView.heightAnchor)
         ])
         
         NSLayoutConstraint.activate([
