@@ -38,6 +38,7 @@ class LoginView: BindView<LoginViewModel> {
         label.text = "Start Local, Go Global"
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "taglineLabel"
         return label
     }()
     
@@ -51,6 +52,7 @@ class LoginView: BindView<LoginViewModel> {
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(tapAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityIdentifier = "loginButton"
         return button
     }()
     

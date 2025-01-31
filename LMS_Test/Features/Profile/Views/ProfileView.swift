@@ -19,6 +19,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         imageView.image = UIImage(named: "top_nav")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIdentifier = "backgroundImageView"
         return imageView
     }()
     
@@ -27,6 +28,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         imageView.image = UIImage(named:"menue-icon")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIdentifier = "menuImageView"
         return imageView
     }()
     
@@ -35,6 +37,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         imageView.image = UIImage(named:"LMS-Logo")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIdentifier = "logoImageView"
         return imageView
     }()
     
@@ -45,13 +48,14 @@ class ProfileView: BindView<ProfileViewModel>  {
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
-        
+        button.accessibilityIdentifier = "logoutButton"
         return button
     }()
     
     private(set) lazy var segmentsContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "segmentsContainerView"
         return view
     }()
     
@@ -65,6 +69,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         label.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(featuredTapped))
         label.addGestureRecognizer(tap)
+        label.accessibilityIdentifier = "featuredLabel"
         return label
     }()
     
@@ -78,6 +83,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         label.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(proTapped))
         label.addGestureRecognizer(tap)
+        label.accessibilityIdentifier = "proLabel"
         return label
     }()
     
@@ -85,6 +91,7 @@ class ProfileView: BindView<ProfileViewModel>  {
         let view = UIView()
         view.backgroundColor = Constant.Colors.proSegmentColor
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "indicatorBar"
         return view
     }()
     

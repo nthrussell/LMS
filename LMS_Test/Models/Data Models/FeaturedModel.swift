@@ -61,6 +61,19 @@ struct RecentResult: Codable {
     let oppLogo: String
     let matchInfo: String
     let dateTime: String
+        
+    var formattedDate: String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        inputFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        
+        guard let date = inputFormatter.date(from: dateTime) else { return "" }
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "EEEE dd MMMM"
+        
+        return outputFormatter.string(from: date)
+    }
 }
 
 struct UpcomingFixture: Codable {

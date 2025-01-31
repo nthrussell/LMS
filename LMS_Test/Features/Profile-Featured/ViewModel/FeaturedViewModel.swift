@@ -70,7 +70,7 @@ class DefaultFeaturedViewModel: FeaturedViewModel {
                 recentVideos = payload.mapToRecentVideos()
                 tournaments = payload.mapToTournaments()
                 
-                Logger.log("top recentVideos:\(recentVideos ?? [])")
+                Logger.log("top recentResults:\(recentResults ?? [])")
                 
                 onCompletion()
             }

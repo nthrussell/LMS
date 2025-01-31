@@ -28,6 +28,7 @@ class RecentVideoCell: UITableViewCell {
         imageView.clipsToBounds = true
         imageView.backgroundColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIdentifier = "videoImageView"
         return imageView
     }()
     
@@ -41,6 +42,7 @@ class RecentVideoCell: UITableViewCell {
         label.clipsToBounds = true
         label.text = "Last Man Stands"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "tagLabel"
         return label
     }()
     
@@ -50,6 +52,7 @@ class RecentVideoCell: UITableViewCell {
         label.textColor = Constant.Colors.AccentColor
         label.text = "03/10/2024 | Highlits"
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "recentTitleLabel"
         return label
     }()
     
@@ -59,6 +62,7 @@ class RecentVideoCell: UITableViewCell {
         label.textColor = Constant.Colors.textDeepGreenColor
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "recentDescriptionLabel"
         return label
     }()
     
@@ -66,6 +70,7 @@ class RecentVideoCell: UITableViewCell {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "share"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityIdentifier = "shareButton"
         return button
     }()
     

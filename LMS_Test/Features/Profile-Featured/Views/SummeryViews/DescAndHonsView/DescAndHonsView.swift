@@ -26,6 +26,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = Constant.Colors.AccentColor
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "descTitleLabel"
         return label
     }()
     
@@ -36,6 +37,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         label.textColor = Constant.Colors.desTextColor
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "descDescriptionLabel"
         return label
     }()
     
@@ -47,6 +49,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         view.layer.cornerRadius = 4
         view.layer.borderWidth = 0.5
         view.layer.borderColor = Constant.Colors.AccentColor.cgColor
+        view.accessibilityIdentifier = "honsContainer"
         return view
     }()
     
@@ -56,6 +59,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = Constant.Colors.AccentColor
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "honsTitleLabel"
         return label
     }()
     
@@ -65,6 +69,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         label.textColor = Constant.Colors.textDeepGreenColor
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "row1TitleLabel"
         return label
     }()
     
@@ -74,6 +79,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         label.textColor = .black
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "row1ValueLabel"
         return label
     }()
     
@@ -81,6 +87,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         let separator = UIView()
         separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.4)
         separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.accessibilityIdentifier = "row1Separator"
         return separator
     }()
     
@@ -90,6 +97,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         label.textColor = Constant.Colors.textDeepGreenColor
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "row2TitleLabel"
         return label
     }()
     
@@ -99,6 +107,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         label.textColor = .black
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "row2ValueLabel"
         return label
     }()
     
@@ -106,6 +115,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         let separator = UIView()
         separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.4)
         separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.accessibilityIdentifier = "row2Separator"
         return separator
     }()
     
@@ -118,6 +128,7 @@ class DescAndHonsView: BindView<FeaturedViewModel> {
         button.layer.borderWidth = 2
         button.layer.borderColor = Constant.Colors.buttonRed.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityIdentifier = "viewAllButton"
         return button
     }()
     

@@ -11,24 +11,28 @@ class FirstStackView : BindView<FeaturedViewModel> {
     private(set) lazy var box1: UIView = {
         let view = createBox(title: "Matches", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "box1"
         return view
     }()
     
     private(set) lazy var box2: UIView = {
         let view = createBox(title: "Win Ratio", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "box2"
         return view
     }()
     
     private(set) lazy var box3: UIView = {
         let view = createBox(title: "Wins", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "box3"
         return view
     }()
     
     private(set) lazy var box4: UIView = {
         let view = createBox(title: "Loses", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "box4"
         return view
     }()
     
@@ -39,6 +43,7 @@ class FirstStackView : BindView<FeaturedViewModel> {
         row1.distribution = .fillEqually
         row1.spacing = 8
         row1.translatesAutoresizingMaskIntoConstraints = false
+        row1.accessibilityIdentifier = "row1StackView"
         return row1
     }()
     
@@ -50,6 +55,7 @@ class FirstStackView : BindView<FeaturedViewModel> {
         row2.distribution = .fillEqually
         row2.spacing = 8
         row2.translatesAutoresizingMaskIntoConstraints = false
+        row2.accessibilityIdentifier = "row2StackView"
         return row2
     }()
     
@@ -61,6 +67,7 @@ class FirstStackView : BindView<FeaturedViewModel> {
         mainStackView.distribution = .fillEqually
         mainStackView.spacing = 8
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainStackView.accessibilityIdentifier = "mainStackView"
         return mainStackView
     }()
     

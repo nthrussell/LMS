@@ -18,6 +18,7 @@ class RecentResultsCell: UITableViewCell {
         label.textAlignment = .center
         label.textColor = Constant.Colors.desTextColor
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "dateLabel"
         return label
     }()
     
@@ -25,18 +26,30 @@ class RecentResultsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 22
         imageView.backgroundColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIdentifier = "sideAImageView"
+        return imageView
+    }()
+    
+    private let sideAWinImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "win_badge")
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIdentifier = "sideAWinImageView"
         return imageView
     }()
     
     private let sideATitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Team A"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "sideATitleLabel"
         return label
     }()
     
@@ -44,9 +57,10 @@ class RecentResultsCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 22
         imageView.backgroundColor = .lightGray
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIdentifier = "sideBImageView"
         return imageView
     }()
     
@@ -56,35 +70,39 @@ class RecentResultsCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "sideBTitleLabel"
         return label
     }()
     
     private let vsLabel: UILabel = {
         let label = UILabel()
         label.text = "VS"
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textAlignment = .center
-        label.textColor = Constant.Colors.AccentColor.withAlphaComponent(0.4)
+        label.textColor = Constant.Colors.AccentColor.withAlphaComponent(0.3)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "vsLabel"
         return label
     }()
     
     private let resultLabel: UILabel = {
         let label = UILabel()
-        label.text = "Team A won"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.text = ""
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = Constant.Colors.AccentColor
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.accessibilityIdentifier = "resultLabel"
         return label
     }()
     
     private let separator: UIView = {
-           let separator = UIView()
-           separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.5)
-           separator.translatesAutoresizingMaskIntoConstraints = false
-           return separator
-       }()
+        let separator = UIView()
+        separator.backgroundColor = Constant.Colors.AccentColor.withAlphaComponent(0.3)
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.accessibilityIdentifier = "recentSeparator"
+        return separator
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -92,13 +110,14 @@ class RecentResultsCell: UITableViewCell {
         contentView.layer.borderColor = Constant.Colors.AccentColor.cgColor
         contentView.addSubview(dateLabel)
         contentView.addSubview(sideAImageView)
+        contentView.addSubview(sideAWinImageView)
         contentView.addSubview(sideATitleLabel)
         contentView.addSubview(sideBImageView)
         contentView.addSubview(sideBTitleLabel)
         contentView.addSubview(vsLabel)
         contentView.addSubview(resultLabel)
         contentView.addSubview(separator)
-
+        
         setupConstraints()
     }
     
@@ -118,18 +137,23 @@ class RecentResultsCell: UITableViewCell {
             
             // Side A
             sideAImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
-            sideAImageView.trailingAnchor.constraint(equalTo: vsLabel.leadingAnchor, constant: -24),
-            sideAImageView.widthAnchor.constraint(equalToConstant: 40),
-            sideAImageView.heightAnchor.constraint(equalToConstant: 40),
+            sideAImageView.trailingAnchor.constraint(equalTo: vsLabel.leadingAnchor, constant: -14),
+            sideAImageView.widthAnchor.constraint(equalToConstant: 44),
+            sideAImageView.heightAnchor.constraint(equalToConstant: 44),
+            
+            sideAWinImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
+            sideAWinImageView.leadingAnchor.constraint(equalTo: sideAImageView.leadingAnchor, constant: -12),
+            sideAWinImageView.widthAnchor.constraint(equalToConstant: 24),
+            sideAWinImageView.heightAnchor.constraint(equalToConstant: 24),
             
             sideATitleLabel.topAnchor.constraint(equalTo: sideAImageView.bottomAnchor, constant: 4),
             sideATitleLabel.trailingAnchor.constraint(equalTo: sideAImageView.trailingAnchor),
             
             // Side B
             sideBImageView.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 8),
-            sideBImageView.leadingAnchor.constraint(equalTo: vsLabel.trailingAnchor, constant: 24),
-            sideBImageView.widthAnchor.constraint(equalToConstant: 40),
-            sideBImageView.heightAnchor.constraint(equalToConstant: 40),
+            sideBImageView.leadingAnchor.constraint(equalTo: vsLabel.trailingAnchor, constant: 14),
+            sideBImageView.widthAnchor.constraint(equalToConstant: 44),
+            sideBImageView.heightAnchor.constraint(equalToConstant: 44),
             
             sideBTitleLabel.topAnchor.constraint(equalTo: sideBImageView.bottomAnchor, constant: 4),
             sideBTitleLabel.leadingAnchor.constraint(equalTo: sideBImageView.leadingAnchor),

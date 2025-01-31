@@ -12,24 +12,28 @@ class SecondStackView : BindView<FeaturedViewModel> {
     private(set) lazy var box1: UIView = {
         let view = createBox(title: "City Rank:", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "secondBox1"
         return view
     }()
     
     private(set) lazy var box2: UIView = {
         let view = createBox(title: "National Rank:", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "secondBox2"
         return view
     }()
     
     private(set) lazy var box3: UIView = {
         let view = createBox(title: "World Rank:", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "secondBox3"
         return view
     }()
     
     private(set) lazy var box4: UIView = {
         let view = createBox(title: "Form:", value: "")
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.accessibilityIdentifier = "secondBox4"
         return view
     }()
     
@@ -40,6 +44,7 @@ class SecondStackView : BindView<FeaturedViewModel> {
         row1.distribution = .fillEqually
         row1.translatesAutoresizingMaskIntoConstraints = false
         row1.spacing = 16
+        row1.accessibilityIdentifier = "secondRow1"
         return row1
     }()
     
@@ -51,6 +56,7 @@ class SecondStackView : BindView<FeaturedViewModel> {
         row2.distribution = .fillEqually
         row2.spacing = 16 // Space between boxes in the row
         row2.translatesAutoresizingMaskIntoConstraints = false
+        row2.accessibilityIdentifier = "secondRow2"
         return row2
     }()
     
@@ -62,6 +68,7 @@ class SecondStackView : BindView<FeaturedViewModel> {
         mainStackView.distribution = .fillEqually
         mainStackView.spacing = 8 // Space between rows
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainStackView.accessibilityIdentifier = "secondStackView"
         return mainStackView
     }()
     
